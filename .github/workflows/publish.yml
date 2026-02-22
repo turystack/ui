@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
         with:
@@ -23,7 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -32,16 +31,20 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Bump patch version
+      - name: Bump Version and Publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Bump local
           npm version patch --no-git-tag-version
           VERSION=$(node -p "require('./package.json').version")
+          
+          # Publicar via OIDC (Trusted Publisher)
+          pnpm publish --no-git-checks --provenance --access public
+          
+          # Se o publish deu certo, commitamos e tagueamos o repo
           git add package.json
-          git commit -m "chore: bump version to $VERSION [skip ci]"
+          git commit -m "chore: release v$VERSION [skip ci]"
           git tag "v$VERSION"
           git push origin main --tags
-
-      - name: Publish to npm
-        run: pnpm publish --no-git-checks --provenance
