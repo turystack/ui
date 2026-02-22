@@ -1,10 +1,10 @@
-export type ButtonSlots = 'root' | 'loading' | 'leftSection' | 'rightSection'
+export type TButtonSlots = 'root' | 'loading' | 'leftSection' | 'rightSection'
 
-export type ButtonType = 'button' | 'submit' | 'reset'
+export type TButtonType = 'button' | 'submit' | 'reset'
 
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'
+export type TButtonSize = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'
 
-export type ButtonVariant =
+export type TButtonVariant =
 	| 'default'
 	| 'destructive'
 	| 'outline'
@@ -13,11 +13,11 @@ export type ButtonVariant =
 	| 'ghost'
 	| 'link'
 
-export type ButtonProps = {
+export type TButtonProps = {
 	form?: string
-	type?: ButtonType
-	size?: ButtonSize
-	variant?: ButtonVariant
+	type?: TButtonType
+	size?: TButtonSize
+	variant?: TButtonVariant
 	leftSection?: React.ReactNode
 	rightSection?: React.ReactNode
 	block?: boolean
