@@ -6,6 +6,10 @@ export const TuryStackContext = createContext<
 	TuryStackProviderProps | undefined
 >(undefined)
 
-export function useTuryStack() {
-	return useContext(TuryStackContext)
+export function useInternalState() {
+	const state = useContext(TuryStackContext)
+
+	return {
+		components: state?.components,
+	}
 }

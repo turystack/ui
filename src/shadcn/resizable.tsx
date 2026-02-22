@@ -11,7 +11,7 @@ const ResizablePanelGroup = ({
 }: React.ComponentProps<typeof Group>) => (
 	<Group
 		className={cn(
-			'flex h-full w-full data-[panel-group-direction=vertical]:flex-col',
+			't:flex t:h-full t:w-full t:data-[panel-group-direction=vertical]:flex-col',
 			className,
 		)}
 		{...props}
@@ -29,14 +29,14 @@ const ResizableHandle = ({
 }) => (
 	<Separator
 		className={cn(
-			'relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90',
+			't:after:-t-translate-x-1/2 t:data-[panel-group-direction=vertical]:after:-t-translate-y-1/2 t:relative t:flex t:w-px t:items-center t:justify-center t:bg-border t:after:absolute t:after:inset-y-0 t:after:left-1/2 t:after:w-1 t:focus-visible:outline-none t:focus-visible:ring-1 t:focus-visible:ring-ring t:focus-visible:ring-offset-1 t:data-[panel-group-direction=vertical]:h-px t:data-[panel-group-direction=vertical]:w-full t:data-[panel-group-direction=vertical]:after:left-0 t:data-[panel-group-direction=vertical]:after:h-1 t:data-[panel-group-direction=vertical]:after:w-full t:data-[panel-group-direction=vertical]:after:translate-x-0 t:[&[data-panel-group-direction=vertical]>div]:rotate-90',
 			className,
 		)}
 		{...props}
 	>
 		{withHandle && (
-			<div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border">
-				<GripVertical className="h-2.5 w-2.5" />
+			<div className="t:z-10 t:flex t:h-4 t:w-3 t:items-center t:justify-center t:rounded-sm t:border t:bg-border">
+				<GripVertical className="t:h-2.5 t:w-2.5" />
 			</div>
 		)}
 	</Separator>

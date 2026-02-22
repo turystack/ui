@@ -17,24 +17,24 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
 	return (
 		<Sonner
-			theme={theme as ToasterProps['theme']}
-			className="toaster group"
+			className="t:toaster t:group"
 			icons={{
-				success: <CircleCheck className="h-4 w-4" />,
-				info: <Info className="h-4 w-4" />,
-				warning: <TriangleAlert className="h-4 w-4" />,
-				error: <OctagonX className="h-4 w-4" />,
-				loading: <LoaderCircle className="h-4 w-4 animate-spin" />,
+				error: <OctagonX className="t:h-4 t:w-4" />,
+				info: <Info className="t:h-4 t:w-4" />,
+				loading: <LoaderCircle className="t:h-4 t:w-4 t:animate-spin" />,
+				success: <CircleCheck className="t:h-4 t:w-4" />,
+				warning: <TriangleAlert className="t:h-4 t:w-4" />,
 			}}
+			theme={theme as ToasterProps['theme']}
 			toastOptions={{
 				classNames: {
-					toast:
-						'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
-					description: 'group-[.toast]:text-muted-foreground',
 					actionButton:
-						'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
+						't:group-[.toast]:bg-primary t:group-[.toast]:text-primary-foreground',
 					cancelButton:
-						'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+						't:group-[.toast]:bg-muted t:group-[.toast]:text-muted-foreground',
+					description: 't:group-[.toast]:text-muted-foreground',
+					toast:
+						't:group t:toast t:group-[.toaster]:bg-background t:group-[.toaster]:text-foreground t:group-[.toaster]:border-border t:group-[.toaster]:shadow-lg',
 				},
 			}}
 			{...props}

@@ -1,9 +1,9 @@
 'use client'
 
-import * as React from 'react'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { X } from 'lucide-react'
+import * as React from 'react'
 
 import { cn } from '@/support/utils'
 
@@ -21,7 +21,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
 		className={cn(
-			'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:fixed t:inset-0 t:z-50 t:bg-black/80 t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
 			className,
 		)}
 		{...props}
@@ -31,20 +31,20 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-	'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+	't:fixed t:z-50 t:gap-4 t:bg-background t:p-6 t:shadow-lg t:transition t:ease-in-out t:data-[state=open]:animate-in t:data-[state=closed]:animate-out t:data-[state=closed]:duration-300 t:data-[state=open]:duration-500',
 	{
-		variants: {
-			side: {
-				top: 'inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',
-				bottom:
-					'inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
-				left: 'inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
-				right:
-					'inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
-			},
-		},
 		defaultVariants: {
 			side: 'right',
+		},
+		variants: {
+			side: {
+				bottom:
+					't:inset-x-0 t:bottom-0 t:border-t t:data-[state=closed]:slide-out-to-bottom t:data-[state=open]:slide-in-from-bottom',
+				left: 't:inset-y-0 t:left-0 t:h-full t:w-3/4 t:border-r t:data-[state=closed]:slide-out-to-left t:data-[state=open]:slide-in-from-left t:sm:max-w-sm',
+				right:
+					't:inset-y-0 t:right-0 t:h-full t:w-3/4  t:border-l t:data-[state=closed]:slide-out-to-right t:data-[state=open]:slide-in-from-right t:sm:max-w-sm',
+				top: 't:inset-x-0 t:top-0 t:border-b t:data-[state=closed]:slide-out-to-top t:data-[state=open]:slide-in-from-top',
+			},
 		},
 	},
 )
@@ -60,19 +60,19 @@ const SheetContent = React.forwardRef<
 	<SheetPortal>
 		<SheetOverlay />
 		<SheetPrimitive.Content
-			ref={ref}
 			className={cn(
 				sheetVariants({
 					side,
 				}),
 				className,
 			)}
+			ref={ref}
 			{...props}
 		>
 			{children}
-			<SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-				<X className="h-4 w-4" />
-				<span className="sr-only">Close</span>
+			<SheetPrimitive.Close className="t:absolute t:top-4 t:right-4 t:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:disabled:pointer-events-none t:data-[state=open]:bg-secondary">
+				<X className="t:h-4 t:w-4" />
+				<span className="t:sr-only">Close</span>
 			</SheetPrimitive.Close>
 		</SheetPrimitive.Content>
 	</SheetPortal>
@@ -85,7 +85,7 @@ const SheetHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cn(
-			'flex flex-col space-y-2 text-center sm:text-left',
+			't:flex t:flex-col t:space-y-2 t:text-center t:sm:text-left',
 			className,
 		)}
 		{...props}
@@ -99,7 +99,7 @@ const SheetFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cn(
-			'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+			't:flex t:flex-col-reverse t:sm:flex-row t:sm:justify-end t:sm:space-x-2',
 			className,
 		)}
 		{...props}
@@ -112,8 +112,8 @@ const SheetTitle = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Title
+		className={cn('t:font-semibold t:text-foreground t:text-lg', className)}
 		ref={ref}
-		className={cn('text-lg font-semibold text-foreground', className)}
 		{...props}
 	/>
 ))
@@ -124,8 +124,8 @@ const SheetDescription = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Description
+		className={cn('t:text-muted-foreground t:text-sm', className)}
 		ref={ref}
-		className={cn('text-sm text-muted-foreground', className)}
 		{...props}
 	/>
 ))

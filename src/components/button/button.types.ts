@@ -2,7 +2,7 @@ export type ButtonSlots = 'root' | 'loading' | 'leftSection' | 'rightSection'
 
 export type ButtonType = 'button' | 'submit' | 'reset'
 
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'
 
 export type ButtonVariant =
 	| 'default'

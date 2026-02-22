@@ -24,7 +24,7 @@ const BreadcrumbList = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<ol
 		className={cn(
-			'flex flex-wrap items-center gap-1.5 break-words text-muted-foreground text-sm sm:gap-2.5',
+			't:flex t:flex-wrap t:items-center t:gap-1.5 t:break-words t:text-muted-foreground t:text-sm t:sm:gap-2.5',
 			className,
 		)}
 		ref={ref}
@@ -38,7 +38,7 @@ const BreadcrumbItem = React.forwardRef<
 	React.ComponentPropsWithoutRef<'li'>
 >(({ className, ...props }, ref) => (
 	<li
-		className={cn('inline-flex items-center gap-1.5', className)}
+		className={cn('t:inline-flex t:items-center t:gap-1.5', className)}
 		ref={ref}
 		{...props}
 	/>
@@ -55,7 +55,7 @@ const BreadcrumbLink = React.forwardRef<
 
 	return (
 		<Comp
-			className={cn('transition-colors hover:text-foreground', className)}
+			className={cn('t:transition-colors t:hover:text-foreground', className)}
 			ref={ref}
 			{...props}
 		/>
@@ -70,7 +70,7 @@ const BreadcrumbPage = React.forwardRef<
 	<span
 		aria-current="page"
 		aria-disabled="true"
-		className={cn('font-normal text-foreground', className)}
+		className={cn('t:font-normal t:text-foreground', className)}
 		ref={ref}
 		{...props}
 	/>
@@ -84,7 +84,7 @@ const BreadcrumbSeparator = ({
 }: React.ComponentProps<'li'>) => (
 	<li
 		aria-hidden="true"
-		className={cn('[&>svg]:h-3.5 [&>svg]:w-3.5', className)}
+		className={cn('t:[&>svg]:h-3.5 t:[&>svg]:w-3.5', className)}
 		role="presentation"
 		{...props}
 	>
@@ -99,12 +99,15 @@ const BreadcrumbEllipsis = ({
 }: React.ComponentProps<'span'>) => (
 	<span
 		aria-hidden="true"
-		className={cn('flex h-9 w-9 items-center justify-center', className)}
+		className={cn(
+			't:flex t:h-9 t:w-9 t:items-center t:justify-center',
+			className,
+		)}
 		role="presentation"
 		{...props}
 	>
-		<MoreHorizontal className="h-4 w-4" />
-		<span className="sr-only">More</span>
+		<MoreHorizontal className="t:h-4 t:w-4" />
+		<span className="t:sr-only">More</span>
 	</span>
 )
 BreadcrumbEllipsis.displayName = 'BreadcrumbElipssis'

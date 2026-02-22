@@ -14,7 +14,7 @@ const Command = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<CommandPrimitive
 		className={cn(
-			'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
+			't:flex t:h-full t:w-full t:flex-col t:overflow-hidden t:rounded-md t:bg-popover t:text-popover-foreground',
 			className,
 		)}
 		ref={ref}
@@ -26,8 +26,8 @@ Command.displayName = CommandPrimitive.displayName
 const CommandDialog = ({ children, ...props }: DialogProps) => {
 	return (
 		<Dialog {...props}>
-			<DialogContent className="overflow-hidden p-0 shadow-lg">
-				<Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+			<DialogContent className="t:overflow-hidden t:p-0 t:shadow-lg">
+				<Command className="t:[&_[cmdk-group-heading]]:px-2 t:[&_[cmdk-group-heading]]:font-medium t:[&_[cmdk-group-heading]]:text-muted-foreground t:[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 t:[&_[cmdk-group]]:px-2 t:[&_[cmdk-input-wrapper]_svg]:h-5 t:[&_[cmdk-input-wrapper]_svg]:w-5 t:[&_[cmdk-input]]:h-12 t:[&_[cmdk-item]]:px-2 t:[&_[cmdk-item]]:py-3 t:[&_[cmdk-item]_svg]:h-5 t:[&_[cmdk-item]_svg]:w-5">
 					{children}
 				</Command>
 			</DialogContent>
@@ -40,13 +40,13 @@ const CommandInput = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
 	<div
-		className="flex items-center border-b px-3"
+		className="t:flex t:items-center t:border-b t:px-3"
 		cmdk-input-wrapper=""
 	>
-		<Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+		<Search className="t:mr-2 t:h-4 t:w-4 t:shrink-0 t:opacity-50" />
 		<CommandPrimitive.Input
 			className={cn(
-				'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+				't:flex t:h-11 t:w-full t:rounded-md t:bg-transparent t:py-3 t:text-sm t:outline-none t:placeholder:text-muted-foreground t:disabled:cursor-not-allowed t:disabled:opacity-50',
 				className,
 			)}
 			ref={ref}
@@ -62,7 +62,10 @@ const CommandList = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, ...props }, ref) => (
 	<CommandPrimitive.List
-		className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
+		className={cn(
+			't:max-h-[300px] t:overflow-y-auto t:overflow-x-hidden',
+			className,
+		)}
 		ref={ref}
 		{...props}
 	/>
@@ -75,7 +78,7 @@ const CommandEmpty = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
 >((props, ref) => (
 	<CommandPrimitive.Empty
-		className="py-6 text-center text-sm"
+		className="t:py-6 t:text-center t:text-sm"
 		ref={ref}
 		{...props}
 	/>
@@ -89,7 +92,7 @@ const CommandGroup = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<CommandPrimitive.Group
 		className={cn(
-			'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs',
+			't:overflow-hidden t:p-1 t:text-foreground t:[&_[cmdk-group-heading]]:px-2 t:[&_[cmdk-group-heading]]:py-1.5 t:[&_[cmdk-group-heading]]:font-medium t:[&_[cmdk-group-heading]]:text-muted-foreground t:[&_[cmdk-group-heading]]:text-xs',
 			className,
 		)}
 		ref={ref}
@@ -104,7 +107,7 @@ const CommandSeparator = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
 >(({ className, ...props }, ref) => (
 	<CommandPrimitive.Separator
-		className={cn('-mx-1 h-px bg-border', className)}
+		className={cn('t:-t-mx-1 t:h-px t:bg-border', className)}
 		ref={ref}
 		{...props}
 	/>
@@ -134,7 +137,7 @@ const CommandShortcut = ({
 	return (
 		<span
 			className={cn(
-				'ml-auto text-muted-foreground text-xs tracking-widest',
+				't:ml-auto t:text-muted-foreground t:text-xs t:tracking-widest',
 				className,
 			)}
 			{...props}

@@ -1,6 +1,6 @@
-import * as React from 'react'
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
 import { Check, ChevronRight, Circle } from 'lucide-react'
+import * as React from 'react'
 
 import { cn } from '@/support/utils'
 
@@ -23,16 +23,16 @@ const ContextMenuSubTrigger = React.forwardRef<
 	}
 >(({ className, inset, children, ...props }, ref) => (
 	<ContextMenuPrimitive.SubTrigger
-		ref={ref}
 		className={cn(
-			'flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground',
-			inset && 'pl-8',
+			't:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:px-2 t:py-1.5 t:text-sm t:outline-none t:focus:bg-accent t:focus:text-accent-foreground t:data-[state=open]:bg-accent t:data-[state=open]:text-accent-foreground',
+			inset && 't:pl-8',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	>
 		{children}
-		<ChevronRight className="ml-auto h-4 w-4" />
+		<ChevronRight className="t:ml-auto t:h-4 t:w-4" />
 	</ContextMenuPrimitive.SubTrigger>
 ))
 ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName
@@ -42,11 +42,11 @@ const ContextMenuSubContent = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
 	<ContextMenuPrimitive.SubContent
-		ref={ref}
 		className={cn(
-			'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-context-menu-content-transform-origin]',
+			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2 t:z-50 t:min-w-[8rem] t:origin-[--radix-context-menu-content-transform-origin] t:overflow-hidden t:rounded-md t:border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -58,11 +58,11 @@ const ContextMenuContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<ContextMenuPrimitive.Portal>
 		<ContextMenuPrimitive.Content
-			ref={ref}
 			className={cn(
-				'z-50 max-h-[--radix-context-menu-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-context-menu-content-transform-origin]',
+				't:fade-in-80 t:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2 t:z-50 t:max-h-[--radix-context-menu-content-available-height] t:min-w-[8rem] t:origin-[--radix-context-menu-content-transform-origin] t:animate-in t:overflow-y-auto t:overflow-x-hidden t:rounded-md t:border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
 				className,
 			)}
+			ref={ref}
 			{...props}
 		/>
 	</ContextMenuPrimitive.Portal>
@@ -76,12 +76,12 @@ const ContextMenuItem = React.forwardRef<
 	}
 >(({ className, inset, ...props }, ref) => (
 	<ContextMenuPrimitive.Item
-		ref={ref}
 		className={cn(
-			'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-			inset && 'pl-8',
+			't:relative t:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:px-2 t:py-1.5 t:text-sm t:outline-none t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50',
+			inset && 't:pl-8',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -92,17 +92,17 @@ const ContextMenuCheckboxItem = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
 	<ContextMenuPrimitive.CheckboxItem
-		ref={ref}
+		checked={checked}
 		className={cn(
-			'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+			't:relative t:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:py-1.5 t:pr-2 t:pl-8 t:text-sm t:outline-none t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50',
 			className,
 		)}
-		checked={checked}
+		ref={ref}
 		{...props}
 	>
-		<span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+		<span className="t:absolute t:left-2 t:flex t:h-3.5 t:w-3.5 t:items-center t:justify-center">
 			<ContextMenuPrimitive.ItemIndicator>
-				<Check className="h-4 w-4" />
+				<Check className="t:h-4 t:w-4" />
 			</ContextMenuPrimitive.ItemIndicator>
 		</span>
 		{children}
@@ -116,16 +116,16 @@ const ContextMenuRadioItem = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem>
 >(({ className, children, ...props }, ref) => (
 	<ContextMenuPrimitive.RadioItem
-		ref={ref}
 		className={cn(
-			'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+			't:relative t:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:py-1.5 t:pr-2 t:pl-8 t:text-sm t:outline-none t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	>
-		<span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+		<span className="t:absolute t:left-2 t:flex t:h-3.5 t:w-3.5 t:items-center t:justify-center">
 			<ContextMenuPrimitive.ItemIndicator>
-				<Circle className="h-2 w-2 fill-current" />
+				<Circle className="t:h-2 t:w-2 t:fill-current" />
 			</ContextMenuPrimitive.ItemIndicator>
 		</span>
 		{children}
@@ -140,12 +140,12 @@ const ContextMenuLabel = React.forwardRef<
 	}
 >(({ className, inset, ...props }, ref) => (
 	<ContextMenuPrimitive.Label
-		ref={ref}
 		className={cn(
-			'px-2 py-1.5 text-sm font-semibold text-foreground',
-			inset && 'pl-8',
+			't:px-2 t:py-1.5 t:font-semibold t:text-foreground t:text-sm',
+			inset && 't:pl-8',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -156,8 +156,8 @@ const ContextMenuSeparator = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator>
 >(({ className, ...props }, ref) => (
 	<ContextMenuPrimitive.Separator
+		className={cn('t:-t-mx-1 t:my-1 t:h-px t:bg-border', className)}
 		ref={ref}
-		className={cn('-mx-1 my-1 h-px bg-border', className)}
 		{...props}
 	/>
 ))
@@ -170,7 +170,7 @@ const ContextMenuShortcut = ({
 	return (
 		<span
 			className={cn(
-				'ml-auto text-xs tracking-widest text-muted-foreground',
+				't:ml-auto t:text-muted-foreground t:text-xs t:tracking-widest',
 				className,
 			)}
 			{...props}

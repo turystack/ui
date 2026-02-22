@@ -1,7 +1,7 @@
-import * as React from 'react'
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { X } from 'lucide-react'
+import * as React from 'react'
 
 import { cn } from '@/support/utils'
 
@@ -12,28 +12,28 @@ const ToastViewport = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Viewport
-		ref={ref}
 		className={cn(
-			'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
+			't:fixed t:top-0 t:z-[100] t:flex t:max-h-screen t:w-full t:flex-col-reverse t:p-4 t:sm:top-auto t:sm:right-0 t:sm:bottom-0 t:sm:flex-col t:md:max-w-[420px]',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	/>
 ))
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-	'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
+	't:group t:pointer-events-auto t:relative t:flex t:w-full t:items-center t:justify-between t:space-x-4 t:overflow-hidden t:rounded-md t:border t:p-6 t:pr-8 t:shadow-lg t:transition-all t:data-[swipe=cancel]:translate-x-0 t:data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] t:data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] t:data-[swipe=move]:transition-none t:data-[state=open]:animate-in t:data-[state=closed]:animate-out t:data-[swipe=end]:animate-out t:data-[state=closed]:fade-out-80 t:data-[state=closed]:slide-out-to-right-full t:data-[state=open]:slide-in-from-top-full t:data-[state=open]:sm:slide-in-from-bottom-full',
 	{
-		variants: {
-			variant: {
-				default: 'border bg-background text-foreground',
-				destructive:
-					'destructive group border-destructive bg-destructive text-destructive-foreground',
-			},
-		},
 		defaultVariants: {
 			variant: 'default',
+		},
+		variants: {
+			variant: {
+				default: 't:border t:bg-background t:text-foreground',
+				destructive:
+					't:destructive t:group t:border-destructive t:bg-destructive t:text-destructive-foreground',
+			},
 		},
 	},
 )
@@ -45,13 +45,13 @@ const Toast = React.forwardRef<
 >(({ className, variant, ...props }, ref) => {
 	return (
 		<ToastPrimitives.Root
-			ref={ref}
 			className={cn(
 				toastVariants({
 					variant,
 				}),
 				className,
 			)}
+			ref={ref}
 			{...props}
 		/>
 	)
@@ -63,11 +63,11 @@ const ToastAction = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Action
-		ref={ref}
 		className={cn(
-			'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive',
+			't:inline-flex t:h-8 t:shrink-0 t:items-center t:justify-center t:rounded-md t:border t:bg-transparent t:px-3 t:font-medium t:text-sm t:ring-offset-background t:transition-colors t:hover:bg-secondary t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:disabled:pointer-events-none t:disabled:opacity-50 t:group-[.destructive]:border-muted/40 t:group-[.destructive]:focus:ring-destructive t:group-[.destructive]:hover:border-destructive/30 t:group-[.destructive]:hover:bg-destructive t:group-[.destructive]:hover:text-destructive-foreground',
 			className,
 		)}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -78,15 +78,15 @@ const ToastClose = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Close
-		ref={ref}
 		className={cn(
-			'absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
+			't:absolute t:top-2 t:right-2 t:rounded-md t:p-1 t:text-foreground/50 t:opacity-0 t:transition-opacity t:hover:text-foreground t:focus:opacity-100 t:focus:outline-none t:focus:ring-2 t:group-hover:opacity-100 t:group-[.destructive]:text-red-300 t:group-[.destructive]:focus:ring-red-400 t:group-[.destructive]:focus:ring-offset-red-600 t:group-[.destructive]:hover:text-red-50',
 			className,
 		)}
+		ref={ref}
 		toast-close=""
 		{...props}
 	>
-		<X className="h-4 w-4" />
+		<X className="t:h-4 t:w-4" />
 	</ToastPrimitives.Close>
 ))
 ToastClose.displayName = ToastPrimitives.Close.displayName
@@ -96,8 +96,8 @@ const ToastTitle = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Title
+		className={cn('t:font-semibold t:text-sm', className)}
 		ref={ref}
-		className={cn('text-sm font-semibold', className)}
 		{...props}
 	/>
 ))
@@ -108,8 +108,8 @@ const ToastDescription = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Description
+		className={cn('t:text-sm t:opacity-90', className)}
 		ref={ref}
-		className={cn('text-sm opacity-90', className)}
 		{...props}
 	/>
 ))

@@ -25,7 +25,7 @@ const DrawerOverlay = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<DrawerPrimitive.Overlay
-		className={cn('fixed inset-0 z-50 bg-black/80', className)}
+		className={cn('t:fixed t:inset-0 t:z-50 t:bg-black/80', className)}
 		ref={ref}
 		{...props}
 	/>
@@ -40,13 +40,13 @@ const DrawerContent = React.forwardRef<
 		<DrawerOverlay />
 		<DrawerPrimitive.Content
 			className={cn(
-				'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background',
+				't:fixed t:inset-x-0 t:bottom-0 t:z-50 t:mt-24 t:flex t:h-auto t:flex-col t:rounded-t-[10px] t:border t:bg-background',
 				className,
 			)}
 			ref={ref}
 			{...props}
 		>
-			<div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+			<div className="t:mx-auto t:mt-4 t:h-2 t:w-[100px] t:rounded-full t:bg-muted" />
 			{children}
 		</DrawerPrimitive.Content>
 	</DrawerPortal>
@@ -58,7 +58,10 @@ const DrawerHeader = ({
 	...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
-		className={cn('grid gap-1.5 p-4 text-center sm:text-left', className)}
+		className={cn(
+			't:grid t:gap-1.5 t:p-4 t:text-center t:sm:text-left',
+			className,
+		)}
 		{...props}
 	/>
 )
@@ -69,7 +72,7 @@ const DrawerFooter = ({
 	...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
-		className={cn('mt-auto flex flex-col gap-2 p-4', className)}
+		className={cn('t:mt-auto t:flex t:flex-col t:gap-2 t:p-4', className)}
 		{...props}
 	/>
 )
@@ -81,7 +84,7 @@ const DrawerTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<DrawerPrimitive.Title
 		className={cn(
-			'font-semibold text-lg leading-none tracking-tight',
+			't:font-semibold t:text-lg t:leading-none t:tracking-tight',
 			className,
 		)}
 		ref={ref}
@@ -95,7 +98,7 @@ const DrawerDescription = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<DrawerPrimitive.Description
-		className={cn('text-muted-foreground text-sm', className)}
+		className={cn('t:text-muted-foreground t:text-sm', className)}
 		ref={ref}
 		{...props}
 	/>

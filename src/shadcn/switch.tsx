@@ -1,5 +1,5 @@
-import * as React from 'react'
 import * as SwitchPrimitives from '@radix-ui/react-switch'
+import * as React from 'react'
 
 import { cn } from '@/support/utils'
 
@@ -9,7 +9,7 @@ const Switch = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<SwitchPrimitives.Root
 		className={cn(
-			'peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input',
+			't:peer t:inline-flex t:h-6 t:w-11 t:shrink-0 t:cursor-pointer t:items-center t:rounded-full t:border-2 t:border-transparent t:transition-colors t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:focus-visible:ring-offset-background t:disabled:cursor-not-allowed t:disabled:opacity-50 t:data-[state=checked]:bg-primary t:data-[state=unchecked]:bg-input',
 			className,
 		)}
 		{...props}
@@ -17,7 +17,7 @@ const Switch = React.forwardRef<
 	>
 		<SwitchPrimitives.Thumb
 			className={cn(
-				'pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0',
+				't:pointer-events-none t:block t:h-5 t:w-5 t:rounded-full t:bg-background t:shadow-lg t:ring-0 t:transition-transform t:data-[state=checked]:translate-x-5 t:data-[state=unchecked]:translate-x-0',
 			)}
 		/>
 	</SwitchPrimitives.Root>

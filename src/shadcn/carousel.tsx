@@ -148,11 +148,9 @@ const Carousel = React.forwardRef<
 				}}
 			>
 				<div
-					aria-roledescription="carousel"
 					className={cn('relative', className)}
 					onKeyDownCapture={handleKeyDown}
 					ref={ref}
-					role="region"
 					{...props}
 				>
 					{children}
@@ -171,13 +169,13 @@ const CarouselContent = React.forwardRef<
 
 	return (
 		<div
-			className="overflow-hidden"
+			className="t:overflow-hidden"
 			ref={carouselRef}
 		>
 			<div
 				className={cn(
 					'flex',
-					orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
+					orientation === 'horizontal' ? 't:-t-ml-4' : 't:-t-mt-4 t:flex-col',
 					className,
 				)}
 				ref={ref}
@@ -196,14 +194,12 @@ const CarouselItem = React.forwardRef<
 
 	return (
 		<div
-			aria-roledescription="slide"
 			className={cn(
-				'min-w-0 shrink-0 grow-0 basis-full',
-				orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+				't:min-w-0 t:shrink-0 t:grow-0 t:basis-full',
+				orientation === 'horizontal' ? 't:pl-4' : 't:pt-4',
 				className,
 			)}
 			ref={ref}
-			role="group"
 			{...props}
 		/>
 	)
@@ -219,10 +215,10 @@ const CarouselPrevious = React.forwardRef<
 	return (
 		<Button
 			className={cn(
-				'absolute h-8 w-8 rounded-full',
+				't:absolute t:h-8 t:w-8 t:rounded-full',
 				orientation === 'horizontal'
-					? '-left-12 -translate-y-1/2 top-1/2'
-					: '-top-12 -translate-x-1/2 left-1/2 rotate-90',
+					? 't:-t-left-12 t:-t-translate-y-1/2 t:top-1/2'
+					: 't:-t-top-12 t:-t-translate-x-1/2 t:left-1/2 t:rotate-90',
 				className,
 			)}
 			disabled={!canScrollPrev}
@@ -232,8 +228,8 @@ const CarouselPrevious = React.forwardRef<
 			variant={variant}
 			{...props}
 		>
-			<ArrowLeft className="h-4 w-4" />
-			<span className="sr-only">Previous slide</span>
+			<ArrowLeft className="t:h-4 t:w-4" />
+			<span className="t:sr-only">Previous slide</span>
 		</Button>
 	)
 })
@@ -248,10 +244,10 @@ const CarouselNext = React.forwardRef<
 	return (
 		<Button
 			className={cn(
-				'absolute h-8 w-8 rounded-full',
+				't:absolute t:h-8 t:w-8 t:rounded-full',
 				orientation === 'horizontal'
-					? '-right-12 -translate-y-1/2 top-1/2'
-					: '-bottom-12 -translate-x-1/2 left-1/2 rotate-90',
+					? 't:-t-right-12 t:-t-translate-y-1/2 t:top-1/2'
+					: 't:-t-bottom-12 t:-t-translate-x-1/2 t:left-1/2 t:rotate-90',
 				className,
 			)}
 			disabled={!canScrollNext}
@@ -261,8 +257,8 @@ const CarouselNext = React.forwardRef<
 			variant={variant}
 			{...props}
 		>
-			<ArrowRight className="h-4 w-4" />
-			<span className="sr-only">Next slide</span>
+			<ArrowRight className="t:h-4 t:w-4" />
+			<span className="t:sr-only">Next slide</span>
 		</Button>
 	)
 })
