@@ -49,7 +49,7 @@ jobs:
           echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
 
       - name: Bump version and tag
-        run: pnpm version ${{ steps.bump-type.outputs.bump }} --message "chore: release %s"
+        run: "pnpm version ${{ steps.bump-type.outputs.bump }} --message 'chore: release %s'"
 
       - name: Push commit and tag
         run: git push origin main --follow-tags
