@@ -1,17 +1,20 @@
-import type React from 'react'
+import { type PropsWithChildren } from 'react'
+
+import { ColorSchemeProvider } from '@/components/color-scheme/color-scheme'
 
 import { TuryStackContext } from './provider.context'
 import type { TuryStackProviderProps } from './provider.types'
 
 export function TuryStackProvider({
 	children,
+	defaultColorScheme = 'light',
 	...props
-}: TuryStackProviderProps & {
-	children: React.ReactNode
-}) {
+}: PropsWithChildren<TuryStackProviderProps>) {
 	return (
 		<TuryStackContext.Provider value={props}>
-			{children}
+			<ColorSchemeProvider defaultColorScheme={defaultColorScheme}>
+				{children}
+			</ColorSchemeProvider>
 		</TuryStackContext.Provider>
 	)
 }

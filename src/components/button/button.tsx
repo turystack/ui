@@ -8,7 +8,7 @@ import type { ButtonProps } from './button.types'
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
 
-const button = tv({
+export const styles = tv({
 	base: 't:inline-flex t:items-center t:justify-center t:gap-2 t:whitespace-nowrap t:rounded-md t:font-medium t:text-sm t:ring-offset-background t:transition-colors t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:pointer-events-none t:disabled:opacity-50 t:[&_svg]:pointer-events-none t:[&_svg]:size-4 t:[&_svg]:shrink-0',
 	defaultVariants: {
 		size: 'md',
@@ -77,16 +77,15 @@ export function Button(props: PropsWithChildren<ButtonProps>) {
 	const Comp = resolved.asChild ? Slot : 'button'
 	const isDisabled = resolved.disabled || resolved.loading
 
+	const style = styles({
+		block: resolved.block,
+		size: resolved.size,
+		variant: resolved.variant,
+	})
+
 	return (
 		<Comp
-			className={cn(
-				button({
-					block: resolved.block,
-					size: resolved.size,
-					variant: resolved.variant,
-				}),
-				classNames?.root,
-			)}
+			className={cn(style, classNames?.root)}
 			disabled={isDisabled}
 			form={resolved.form}
 			onClick={onClick}

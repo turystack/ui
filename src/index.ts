@@ -1,5 +1,11 @@
 import './index.css'
 
+export * from './components/accordion'
+export * from './components/alert'
+export * from './components/avatar'
+export * from './components/badge'
+export * from './components/breadcrumb'
 export * from './components/button'
+export { useColorScheme } from './components/color-scheme'
 export * from './components/loader'
 export * from './components/provider'
