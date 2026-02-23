@@ -1,9 +1,27 @@
 # Refactor Component: $ARGUMENTS
 
-Migrate the `$ARGUMENTS` component from shadcn/CVA to tailwind-variants following
-the project's established architecture. The goal is **zero shadcn dependency** in the
-component — all styles must live **inline** in `tv()` slots inside
-`src/components/$ARGUMENTS/$ARGUMENTS.tsx`. The shadcn file **must be deleted** at the end.
+Migrate the `$ARGUMENTS` component from shadcn/CVA to **tailwind-variants** following the project's established architecture.
+
+## Requirements
+
+- The goal is **zero shadcn dependency** in the component.
+- All styles must live **inline** inside `tv()` slots.
+- The implementation must exist in: src/components/$ARGUMENTS/$ARGUMENTS.tsx
+- The original shadcn file **must be deleted** at the end of the migration.
+
+## Component Creation Rule
+
+If the component does **not** yet exist, it must be created following:
+
+- The project's architectural conventions
+- Slot-based structure using `tailwind-variants`
+- No shadcn or CVA dependency
+
+## Types Rule
+
+- The `types` file will **always exist**.
+- It must **not be removed**.
+- It should only be adjusted if strictly necessary to maintain compatibility with the new implementation.
 
 ---
 

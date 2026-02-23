@@ -5,7 +5,7 @@ export type SheetSide = 'top' | 'right' | 'bottom' | 'left'
 export type SheetProps = {
 	open?: boolean
 	side?: SheetSide
-	onOpenChange?: (open: boolean) => void
+	onChange?: (open: boolean) => void
 }
 
 export type SheetHeaderSlots = 'root'

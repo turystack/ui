@@ -1,4 +1,4 @@
-export type CheckboxSlots = 'root' | 'indicator' | 'label'
+export type CheckboxSlots = 'wrapper' | 'root' | 'indicator' | 'icon' | 'label'
 
 export type CheckboxSize = 'sm' | 'md' | 'lg'
 
@@ -15,7 +15,7 @@ export type CheckboxProps = {
 	disabled?: boolean
 	checked?: boolean
 	defaultChecked?: boolean
-	onCheckedChange?: (checked: boolean) => void
+	onChange?: (checked: boolean) => void
 }
 
 export type CheckboxGroupSlots = 'root' | 'item'

@@ -1,9 +1,9 @@
-import { type PropsWithChildren } from 'react'
-
-import { ColorSchemeProvider } from '@/components/color-scheme/color-scheme'
+import type { PropsWithChildren } from 'react'
 
 import { TuryStackContext } from './provider.context'
 import type { TuryStackProviderProps } from './provider.types'
+
+import { ColorSchemeProvider } from '@/components/color-scheme/color-scheme'
 
 export function TuryStackProvider({
 	children,

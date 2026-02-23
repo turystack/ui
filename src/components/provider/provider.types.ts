@@ -39,8 +39,70 @@ import type {
 	BreadcrumbSlots,
 } from '@/components/breadcrumb'
 import type { ButtonProps, ButtonSlots } from '@/components/button'
+import type {
+	CardContentProps,
+	CardContentSlots,
+	CardDescriptionProps,
+	CardDescriptionSlots,
+	CardFooterProps,
+	CardFooterSlots,
+	CardHeaderProps,
+	CardHeaderSlots,
+	CardProps,
+	CardSeparatorProps,
+	CardSeparatorSlots,
+	CardSlots,
+	CardTitleProps,
+	CardTitleSlots,
+} from '@/components/card'
+import type {
+	CheckboxGroupProps,
+	CheckboxGroupSlots,
+	CheckboxProps,
+	CheckboxSlots,
+} from '@/components/checkbox'
 import type { ColorScheme } from '@/components/color-scheme'
 import type { LoaderProps, LoaderSlots } from '@/components/loader'
+import type {
+	ModalBodyProps,
+	ModalBodySlots,
+	ModalFooterProps,
+	ModalFooterSlots,
+	ModalHeaderDescriptionProps,
+	ModalHeaderDescriptionSlots,
+	ModalHeaderProps,
+	ModalHeaderSlots,
+	ModalHeaderTitleProps,
+	ModalHeaderTitleSlots,
+	ModalProps,
+	ModalSlots,
+} from '@/components/modal'
+import type { SeparatorProps, SeparatorSlots } from '@/components/separator'
+import type {
+	SheetBodyProps,
+	SheetBodySlots,
+	SheetDescriptionProps,
+	SheetDescriptionSlots,
+	SheetFooterProps,
+	SheetFooterSlots,
+	SheetHeaderProps,
+	SheetHeaderSlots,
+	SheetProps,
+	SheetSlots,
+	SheetTitleProps,
+	SheetTitleSlots,
+} from '@/components/sheet'
+import type { SkeletonProps, SkeletonSlots } from '@/components/skeleton'
+import type {
+	TabsContentProps,
+	TabsContentSlots,
+	TabsListProps,
+	TabsListSlots,
+	TabsProps,
+	TabsSlots,
+	TabsTriggerProps,
+	TabsTriggerSlots,
+} from '@/components/tabs'
 import type {
 	ComponentClassNameSlots,
 	ComponentDefaultProps,
@@ -88,6 +150,49 @@ export type TuryStackProviderProps = {
 			>
 		}
 		button?: ComponentConfig<ButtonProps, ButtonSlots>
+		checkbox?: {
+			default?: ComponentConfig<CheckboxProps, CheckboxSlots>
+			group?: ComponentConfig<CheckboxGroupProps, CheckboxGroupSlots>
+		}
+		card?: {
+			default?: ComponentConfig<CardProps, CardSlots>
+			header?: ComponentConfig<CardHeaderProps, CardHeaderSlots>
+			title?: ComponentConfig<CardTitleProps, CardTitleSlots>
+			description?: ComponentConfig<CardDescriptionProps, CardDescriptionSlots>
+			content?: ComponentConfig<CardContentProps, CardContentSlots>
+			footer?: ComponentConfig<CardFooterProps, CardFooterSlots>
+			separator?: ComponentConfig<CardSeparatorProps, CardSeparatorSlots>
+		}
 		loader?: ComponentConfig<LoaderProps, LoaderSlots>
+		modal?: {
+			default?: ComponentConfig<ModalProps, ModalSlots>
+			header?: ComponentConfig<ModalHeaderProps, ModalHeaderSlots>
+			headerTitle?: ComponentConfig<
+				ModalHeaderTitleProps,
+				ModalHeaderTitleSlots
+			>
+			headerDescription?: ComponentConfig<
+				ModalHeaderDescriptionProps,
+				ModalHeaderDescriptionSlots
+			>
+			body?: ComponentConfig<ModalBodyProps, ModalBodySlots>
+			footer?: ComponentConfig<ModalFooterProps, ModalFooterSlots>
+		}
+		separator?: ComponentConfig<SeparatorProps, SeparatorSlots>
+		sheet?: {
+			default?: ComponentConfig<SheetProps, SheetSlots>
+			header?: ComponentConfig<SheetHeaderProps, SheetHeaderSlots>
+			body?: ComponentConfig<SheetBodyProps, SheetBodySlots>
+			footer?: ComponentConfig<SheetFooterProps, SheetFooterSlots>
+			title?: ComponentConfig<SheetTitleProps, SheetTitleSlots>
+			description?: ComponentConfig<SheetDescriptionProps, SheetDescriptionSlots>
+		}
+		skeleton?: ComponentConfig<SkeletonProps, SkeletonSlots>
+		tabs?: {
+			default?: ComponentConfig<TabsProps, TabsSlots>
+			list?: ComponentConfig<TabsListProps, TabsListSlots>
+			trigger?: ComponentConfig<TabsTriggerProps, TabsTriggerSlots>
+			content?: ComponentConfig<TabsContentProps, TabsContentSlots>
+		}
 	}
 }

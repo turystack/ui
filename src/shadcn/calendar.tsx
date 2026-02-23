@@ -10,7 +10,7 @@ import {
 	getDefaultClassNames,
 } from 'react-day-picker'
 
-import { Button, buttonVariants } from '@/components/button'
+import { Button, styles as buttonVariants } from '@/components/button'
 import { cn } from '@/support/utils'
 
 function Calendar({
@@ -201,7 +201,7 @@ function CalendarDayButton({
 	modifiers,
 	...props
 }: React.ComponentProps<typeof DayButton>) {
-	const defaultClassNames = getDefaultClassNames()
+	// const defaultClassNames = getDefaultClassNames()
 
 	const ref = React.useRef<HTMLButtonElement>(null)
 	React.useEffect(() => {
@@ -214,11 +214,11 @@ function CalendarDayButton({
 
 	return (
 		<Button
-			className={cn(
-				't:flex t:aspect-square t:h-auto t:w-full t:min-w-[--cell-size] t:flex-col t:gap-1 t:font-normal t:leading-none t:data-[range-end=true]:rounded-md t:data-[range-middle=true]:rounded-none t:data-[range-start=true]:rounded-md t:data-[range-end=true]:bg-primary t:data-[range-middle=true]:bg-accent t:data-[range-start=true]:bg-primary t:data-[selected-single=true]:bg-primary t:data-[range-end=true]:text-primary-foreground t:data-[range-middle=true]:text-accent-foreground t:data-[range-start=true]:text-primary-foreground t:data-[selected-single=true]:text-primary-foreground t:group-data-[focused=true]/day:relative t:group-data-[focused=true]/day:z-10 t:group-data-[focused=true]/day:border-ring t:group-data-[focused=true]/day:ring-[3px] t:group-data-[focused=true]/day:ring-ring/50 t:[&>span]:text-xs t:[&>span]:opacity-70',
-				defaultClassNames.day,
-				className,
-			)}
+			// className={cn(
+			// 	't:flex t:aspect-square t:h-auto t:w-full t:min-w-[--cell-size] t:flex-col t:gap-1 t:font-normal t:leading-none t:data-[range-end=true]:rounded-md t:data-[range-middle=true]:rounded-none t:data-[range-start=true]:rounded-md t:data-[range-end=true]:bg-primary t:data-[range-middle=true]:bg-accent t:data-[range-start=true]:bg-primary t:data-[selected-single=true]:bg-primary t:data-[range-end=true]:text-primary-foreground t:data-[range-middle=true]:text-accent-foreground t:data-[range-start=true]:text-primary-foreground t:data-[selected-single=true]:text-primary-foreground t:group-data-[focused=true]/day:relative t:group-data-[focused=true]/day:z-10 t:group-data-[focused=true]/day:border-ring t:group-data-[focused=true]/day:ring-[3px] t:group-data-[focused=true]/day:ring-ring/50 t:[&>span]:text-xs t:[&>span]:opacity-70',
+			// 	defaultClassNames.day,
+			// 	className,
+			// )}
 			data-day={day.date.toLocaleDateString()}
 			data-range-end={modifiers.range_end}
 			data-range-middle={modifiers.range_middle}
@@ -229,8 +229,8 @@ function CalendarDayButton({
 				!modifiers.range_end &&
 				!modifiers.range_middle
 			}
-			ref={ref}
-			size="icon"
+			// ref={ref}
+			size="icon-md"
 			variant="ghost"
 			{...props}
 		/>

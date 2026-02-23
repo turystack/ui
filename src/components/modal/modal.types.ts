@@ -2,7 +2,7 @@ export type ModalSlots = 'root' | 'overlay' | 'content' | 'close'
 
 export type ModalProps = {
 	open?: boolean
-	onOpenChange?: (open: boolean) => void
+	onChange?: (open: boolean) => void
 }
 
 export type ModalHeaderSlots = 'root' | 'title' | 'description'
