@@ -23,7 +23,7 @@ const styles = tv({
 		item: 't:border-b',
 		root: '',
 		trigger:
-			't:flex t:flex-1 t:items-center t:justify-between t:py-4 t:font-medium t:transition-all hover:t:underline [&[data-state=open]>svg]:t:rotate-180',
+			't:flex t:flex-1 t:cursor-pointer t:items-center t:justify-between t:py-4 t:font-medium t:transition-all hover:t:underline [&[data-state=open]>svg]:t:rotate-180',
 	},
 })
 

@@ -62,6 +62,7 @@ import type {
 	CheckboxSlots,
 } from '@/components/checkbox'
 import type { ColorScheme } from '@/components/color-scheme'
+import type { InputProps, InputSlots } from '@/components/input'
 import type { LoaderProps, LoaderSlots } from '@/components/loader'
 import type {
 	ModalBodyProps,
@@ -103,6 +104,15 @@ import type {
 	TabsTriggerProps,
 	TabsTriggerSlots,
 } from '@/components/tabs'
+import type { CurrencyInputProps, CurrencyInputSlots } from '@/components/currency-input/currency-input.types'
+import type { DateInputProps, DateInputSlots } from '@/components/date-input/date-input.types'
+import type { DateRangeInputProps, DateRangeInputSlots } from '@/components/date-range-input/date-range-input.types'
+import type { I18nTranslations } from '@/components/i18n/i18n.types'
+import type { MaskInputProps, MaskInputSlots } from '@/components/mask-input/mask-input.types'
+import type { OTPInputProps, OTPInputSlots } from '@/components/otp-input/otp-input.types'
+import type { PhoneInputProps, PhoneInputSlots } from '@/components/phone-input/phone-input.types'
+import type { SelectSlots } from '@/components/select/select.types'
+import type { TagsInputProps, TagsInputSlots } from '@/components/tags-input/tags-input.types'
 import type {
 	ComponentClassNameSlots,
 	ComponentDefaultProps,
@@ -115,6 +125,7 @@ export type ComponentConfig<T extends object, S extends string> = {
 
 export type TuryStackProviderProps = {
 	defaultColorScheme?: ColorScheme
+	translations?: I18nTranslations
 	components?: {
 		accordion?: {
 			default?: ComponentConfig<AccordionProps, AccordionSlots>
@@ -163,6 +174,7 @@ export type TuryStackProviderProps = {
 			footer?: ComponentConfig<CardFooterProps, CardFooterSlots>
 			separator?: ComponentConfig<CardSeparatorProps, CardSeparatorSlots>
 		}
+		input?: ComponentConfig<InputProps, InputSlots>
 		loader?: ComponentConfig<LoaderProps, LoaderSlots>
 		modal?: {
 			default?: ComponentConfig<ModalProps, ModalSlots>
@@ -188,6 +200,14 @@ export type TuryStackProviderProps = {
 			description?: ComponentConfig<SheetDescriptionProps, SheetDescriptionSlots>
 		}
 		skeleton?: ComponentConfig<SkeletonProps, SkeletonSlots>
+		maskInput?: ComponentConfig<MaskInputProps, MaskInputSlots>
+		currencyInput?: ComponentConfig<CurrencyInputProps, CurrencyInputSlots>
+		otpInput?: ComponentConfig<OTPInputProps, OTPInputSlots>
+		dateInput?: ComponentConfig<DateInputProps, DateInputSlots>
+		dateRangeInput?: ComponentConfig<DateRangeInputProps, DateRangeInputSlots>
+		phoneInput?: ComponentConfig<PhoneInputProps, PhoneInputSlots>
+		tagsInput?: ComponentConfig<TagsInputProps, TagsInputSlots>
+		select?: ComponentConfig<object, SelectSlots>
 		tabs?: {
 			default?: ComponentConfig<TabsProps, TabsSlots>
 			list?: ComponentConfig<TabsListProps, TabsListSlots>

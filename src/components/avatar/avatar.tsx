@@ -21,13 +21,16 @@ const styles = tv({
 	variants: {
 		size: {
 			lg: {
-				root: 't:h-16 t:w-16',
+				fallback: 't:text-lg',
+				root: 't:h-12 t:w-12',
 			},
 			md: {
-				root: 't:h-10 t:w-10',
+				fallback: 't:text-sm',
+				root: 't:h-9 t:w-9',
 			},
 			sm: {
-				root: 't:h-8 t:w-8',
+				fallback: 't:text-xs',
+				root: 't:h-7 t:w-7',
 			},
 		},
 		variant: {

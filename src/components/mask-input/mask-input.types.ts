@@ -4,5 +4,6 @@ export type MaskInputSlots = 'root' | 'input' | 'leftSection' | 'rightSection' |
 
 export type MaskInputProps = Omit<InputProps, 'type' | 'onChange' | 'debounce'> & {
 	mask: string | string[]
+	className?: string
 	onChange?: (value: string | null) => void
 }

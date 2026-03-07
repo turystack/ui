@@ -7,7 +7,7 @@ import { ColorSchemeProvider } from '@/components/color-scheme/color-scheme'
 
 export function TuryStackProvider({
 	children,
-	defaultColorScheme = 'light',
+	defaultColorScheme = 'system',
 	...props
 }: PropsWithChildren<TuryStackProviderProps>) {
 	return (

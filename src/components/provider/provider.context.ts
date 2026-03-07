@@ -11,5 +11,6 @@ export function useInternalState() {
 
 	return {
 		components: state?.components,
+		translations: state?.translations,
 	}
 }

@@ -29,7 +29,7 @@ const styles = tv({
 		},
 		block: {
 			true: {
-				root: 't:flex t:w-full',
+				root: 't:flex t:w-full t:justify-center',
 			},
 		},
 		variant: {

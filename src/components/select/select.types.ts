@@ -22,6 +22,7 @@ export type BaseSelectProps<T, O> = {
 	options: T[]
 	optionLabel: keyof T | ((option: T) => string)
 	optionValue: keyof T | ((option: T) => O)
+	optionGroup?: keyof T | ((option: T) => string)
 	renderOption?: (option: T) => React.ReactNode
 	renderValue?: (option: T) => React.ReactNode
 	placeholder?: string

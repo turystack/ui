@@ -1,9 +1,11 @@
-export type AlertSlots = 'root'
+export type AlertSlots = 'root' | 'close'
 
 export type AlertVariant = 'default' | 'destructive'
 
 export type AlertProps = {
 	variant?: AlertVariant
+	closable?: boolean
+	onClose?: () => void
 }
 
 export type AlertIconSlots = 'root'
