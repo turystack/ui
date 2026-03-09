@@ -11,7 +11,9 @@ export type TabsProps = {
 
 export type TabsListSlots = 'root'
 
-export type TabsListProps = {}
+export type TabsListProps = {
+	justified?: boolean
+}
 
 export type TabsTriggerSlots = 'root'
 
@@ -24,4 +26,13 @@ export type TabsContentSlots = 'root'
 
 export type TabsContentProps = {
 	value: string
+}
+
+import type { ComponentConfig } from '@/support/types'
+
+export type TabsConfig = {
+	default?: ComponentConfig<TabsProps, TabsSlots>
+	list?: ComponentConfig<TabsListProps, TabsListSlots>
+	trigger?: ComponentConfig<TabsTriggerProps, TabsTriggerSlots>
+	content?: ComponentConfig<TabsContentProps, TabsContentSlots>
 }

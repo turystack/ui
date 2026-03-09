@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type AvatarSlots = 'root' | 'image' | 'fallback'
 
 export type AvatarSize = 'sm' | 'md' | 'lg'
@@ -10,3 +12,5 @@ export type AvatarProps = {
 	size?: AvatarSize
 	variant?: AvatarVariant
 }
+
+export type AvatarConfig = ComponentConfig<AvatarProps, AvatarSlots>

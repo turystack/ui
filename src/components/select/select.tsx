@@ -50,13 +50,27 @@ const triggerStyles = tv({
 		't:disabled:cursor-not-allowed t:disabled:opacity-50',
 		't:cursor-pointer',
 	],
+	compoundVariants: [
+		{ class: 't:h-9', mode: 'single', size: 'sm' },
+		{ class: 't:h-10', mode: 'single', size: 'md' },
+		{ class: 't:h-11', mode: 'single', size: 'lg' },
+		{ class: 't:min-h-9', mode: 'multiple', size: 'sm' },
+		{ class: 't:min-h-10', mode: 'multiple', size: 'md' },
+		{ class: 't:min-h-11', mode: 'multiple', size: 'lg' },
+	],
 	defaultVariants: {
 		mode: 'single' as const,
+		size: 'md' as const,
 	},
 	variants: {
 		mode: {
-			multiple: 't:py-1.5 t:min-h-9',
-			single: 't:py-2 t:h-9',
+			multiple: 't:py-1.5',
+			single: 't:py-2',
+		},
+		size: {
+			lg: '',
+			md: '',
+			sm: '',
 		},
 	},
 })
@@ -181,6 +195,7 @@ const SelectSingle = <T, I = string, O = I>({
 	loading,
 	disabled,
 	block,
+	size,
 	renderOption,
 	renderValue,
 	onChange,
@@ -193,6 +208,7 @@ const SelectSingle = <T, I = string, O = I>({
 	const resolvedDisabled = disabled ?? false
 	const resolvedLoading = loading ?? false
 	const resolvedBlock = block ?? false
+	const resolvedSize = size ?? 'md'
 
 	const [open, setOpen] = useState(false)
 	const [searchQuery, setSearchQuery] = useState('')
@@ -284,7 +300,7 @@ const SelectSingle = <T, I = string, O = I>({
 					<button
 						aria-expanded={open}
 						className={cn(
-							triggerStyles({ mode: 'single' }),
+							triggerStyles({ mode: 'single', size: resolvedSize }),
 							hasLeft && 't:pl-10',
 							hasRight && 't:pr-10',
 						)}
@@ -423,6 +439,7 @@ const SelectMultiple = <T, I = string, O = I>({
 	loading,
 	disabled,
 	block,
+	size,
 	renderOption,
 	renderValue,
 	onChange,
@@ -435,6 +452,7 @@ const SelectMultiple = <T, I = string, O = I>({
 	const resolvedDisabled = disabled ?? false
 	const resolvedLoading = loading ?? false
 	const resolvedBlock = block ?? false
+	const resolvedSize = size ?? 'md'
 
 	const [open, setOpen] = useState(false)
 	const [searchQuery, setSearchQuery] = useState('')
@@ -532,7 +550,7 @@ const SelectMultiple = <T, I = string, O = I>({
 					<button
 						aria-expanded={open}
 						className={cn(
-							triggerStyles({ mode: 'multiple' }),
+							triggerStyles({ mode: 'multiple', size: resolvedSize }),
 							hasLeft && 't:pl-10',
 							hasRight && 't:pr-10',
 						)}

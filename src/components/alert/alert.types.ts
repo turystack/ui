@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type AlertSlots = 'root' | 'close'
 
 export type AlertVariant = 'default' | 'destructive'
@@ -23,3 +25,11 @@ export type AlertDescriptionProps = {}
 export type AlertActionSlots = 'root'
 
 export type AlertActionProps = {}
+
+export type AlertConfig = {
+	default?: ComponentConfig<AlertProps, AlertSlots>
+	icon?: ComponentConfig<AlertIconProps, AlertIconSlots>
+	title?: ComponentConfig<AlertTitleProps, AlertTitleSlots>
+	description?: ComponentConfig<AlertDescriptionProps, AlertDescriptionSlots>
+	action?: ComponentConfig<AlertActionProps, AlertActionSlots>
+}

@@ -16,9 +16,9 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
-		content: 't:p-6 t:pt-0',
+		content: 't:p-6',
 		description: 't:text-muted-foreground t:text-sm',
-		footer: 't:flex t:items-center t:p-6 t:pt-0',
+		footer: 't:flex t:items-center t:p-6',
 		header: 't:flex t:flex-col t:space-y-1.5 t:p-6',
 		root: 't:rounded-lg t:border t:bg-card t:text-card-foreground t:shadow-sm',
 		separator: 't:border-t',
@@ -42,7 +42,7 @@ function Root({ onClick, children }: PropsWithChildren<CardProps>) {
 
 	return (
 		<div
-			className={cn(root(), config?.classNames?.root)}
+			className={cn(root(), config?.classNames?.root, onClick && 't:cursor-pointer')}
 			onClick={onClick}
 		>
 			{children}

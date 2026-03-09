@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type BreadcrumbSlots = 'root'
 
 export type BreadcrumbProps = {}
@@ -28,3 +30,13 @@ export type BreadcrumbSeparatorProps = {}
 export type BreadcrumbEllipsisSlots = 'root' | 'icon'
 
 export type BreadcrumbEllipsisProps = {}
+
+export type BreadcrumbConfig = {
+	default?: ComponentConfig<BreadcrumbProps, BreadcrumbSlots>
+	list?: ComponentConfig<BreadcrumbListProps, BreadcrumbListSlots>
+	item?: ComponentConfig<BreadcrumbItemProps, BreadcrumbItemSlots>
+	link?: ComponentConfig<BreadcrumbLinkProps, BreadcrumbLinkSlots>
+	page?: ComponentConfig<BreadcrumbPageProps, BreadcrumbPageSlots>
+	separator?: ComponentConfig<BreadcrumbSeparatorProps, BreadcrumbSeparatorSlots>
+	ellipsis?: ComponentConfig<BreadcrumbEllipsisProps, BreadcrumbEllipsisSlots>
+}

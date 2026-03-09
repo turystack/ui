@@ -1,3 +1,4 @@
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { ChevronDown, Search } from 'lucide-react'
 import { forwardRef, useMemo, useState } from 'react'
 import { tv } from 'tailwind-variants'
@@ -7,12 +8,6 @@ import { COUNTRIES, type Country } from './phone-input.data'
 
 import { MaskInput, type MaskInputProps } from '@/components/mask-input'
 import { useInternalState } from '@/components/provider/provider.context'
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from '@/shadcn/dropdown-menu'
 import { cn } from '@/support/utils'
 
 const DEFAULT_COUNTRY_CODE = 'BR'
@@ -22,7 +17,7 @@ const styles = tv({
 		root: 't:relative t:flex t:w-full',
 		input: '',
 		countrySelector:
-			't:flex t:h-10 t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:disabled:pointer-events-none t:disabled:opacity-50',
+			't:flex t:h-10 t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:cursor-pointer t:disabled:pointer-events-none t:disabled:opacity-50',
 		rightSection: '',
 		loader: '',
 	},
@@ -81,15 +76,12 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 			)
 		}
 
-		const {
-			root,
-			countrySelector,
-		} = styles()
+		const { root, countrySelector } = styles()
 
 		return (
 			<div className={cn(root(), config?.classNames?.root)}>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
+				<DropdownMenuPrimitive.Root>
+					<DropdownMenuPrimitive.Trigger asChild>
 						<button
 							className={cn(
 								countrySelector(),
@@ -104,48 +96,52 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 							</span>
 							<ChevronDown className="t:size-4 t:text-muted-foreground" />
 						</button>
-					</DropdownMenuTrigger>
+					</DropdownMenuPrimitive.Trigger>
 
-					<DropdownMenuContent
-						align="start"
-						className="t:w-[300px] t:p-0"
-					>
-						<div className="t:sticky t:top-0 t:border-b t:bg-popover">
-							<div className="t:relative">
-								<Search className="t:-translate-y-1/2 t:pointer-events-none t:absolute t:top-1/2 t:left-3 t:size-4 t:text-muted-foreground" />
+					<DropdownMenuPrimitive.Portal>
+						<DropdownMenuPrimitive.Content
+							align="start"
+							className="t:z-50 t:w-[300px] t:overflow-hidden t:rounded-md t:border t:bg-popover t:p-0 t:text-popover-foreground t:shadow-md t:data-[state=open]:animate-in t:data-[state=closed]:animate-out t:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2"
+							sideOffset={4}
+						>
+							<div className="t:sticky t:top-0 t:border-b t:bg-popover">
+								<div className="t:relative">
+									<Search className="t:-translate-y-1/2 t:pointer-events-none t:absolute t:top-1/2 t:left-3 t:size-4 t:text-muted-foreground" />
 
-								<input
-									className="t:h-10 t:w-full t:bg-transparent t:py-2 t:pr-3 t:pl-9 t:text-sm t:outline-none t:placeholder:text-muted-foreground"
-									onChange={(e) => setSearchQuery(e.target.value)}
-									placeholder={translations?.searchCountry ?? 'Search country...'}
-									type="text"
-									value={searchQuery}
-								/>
-							</div>
-						</div>
-
-						<div className="t:max-h-[200px] t:overflow-y-auto t:p-1">
-							{filteredCountries.length > 0 ? (
-								filteredCountries.map((country) => (
-									<DropdownMenuItem
-										key={country.code}
-										onClick={() => handleCountryChange(country)}
-									>
-										<span className="t:mr-2 t:text-lg">{country.flag}</span>
-										<span className="t:flex-1">{country.name}</span>
-										<span className="t:text-muted-foreground t:text-sm">
-											{country.dialCode}
-										</span>
-									</DropdownMenuItem>
-								))
-							) : (
-								<div className="t:p-2 t:text-center t:text-muted-foreground t:text-sm">
-									{translations?.noCountriesFound ?? 'No countries found'}
+									<input
+										className="t:h-10 t:w-full t:bg-transparent t:py-2 t:pr-3 t:pl-9 t:text-sm t:outline-none t:placeholder:text-muted-foreground"
+										onChange={(e) => setSearchQuery(e.target.value)}
+										placeholder={translations?.searchCountry ?? 'Search country...'}
+										type="text"
+										value={searchQuery}
+									/>
 								</div>
-							)}
-						</div>
-					</DropdownMenuContent>
-				</DropdownMenu>
+							</div>
+
+							<div className="t:max-h-[200px] t:overflow-y-auto t:p-1">
+								{filteredCountries.length > 0 ? (
+									filteredCountries.map((country) => (
+										<DropdownMenuPrimitive.Item
+											className="t:relative t:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:px-2 t:py-1.5 t:text-sm t:outline-none t:transition-colors t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50"
+											key={country.code}
+											onClick={() => handleCountryChange(country)}
+										>
+											<span className="t:mr-2 t:text-lg">{country.flag}</span>
+											<span className="t:flex-1">{country.name}</span>
+											<span className="t:text-muted-foreground t:text-sm">
+												{country.dialCode}
+											</span>
+										</DropdownMenuPrimitive.Item>
+									))
+								) : (
+									<div className="t:p-2 t:text-center t:text-muted-foreground t:text-sm">
+										{translations?.noCountriesFound ?? 'No countries found'}
+									</div>
+								)}
+							</div>
+						</DropdownMenuPrimitive.Content>
+					</DropdownMenuPrimitive.Portal>
+				</DropdownMenuPrimitive.Root>
 
 				<div className="t:flex-1">
 					<MaskInput

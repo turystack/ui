@@ -3,25 +3,41 @@ import { Dot } from 'lucide-react'
 import { useContext } from 'react'
 import { tv } from 'tailwind-variants'
 
-import type { OTPInputProps } from './otp-input.types'
+import type { OTPInputProps, OTPInputSize } from './otp-input.types'
 
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
 
 const styles = tv({
+	defaultVariants: {
+		size: 'md',
+	},
 	slots: {
+		cell: 't:relative t:flex t:items-center t:justify-center t:border-input t:border-y t:border-r t:text-sm t:transition-all t:first:rounded-l-md t:first:border-l t:last:rounded-r-md',
 		root: 't:flex t:items-center t:gap-2 t:has-[:disabled]:opacity-50',
-		cell: 't:relative t:flex t:h-10 t:w-10 t:items-center t:justify-center t:border-input t:border-y t:border-r t:text-sm t:transition-all t:first:rounded-l-md t:first:border-l t:last:rounded-r-md',
+	},
+	variants: {
+		size: {
+			lg: {
+				cell: 't:h-11 t:w-11',
+			},
+			md: {
+				cell: 't:h-10 t:w-10',
+			},
+			sm: {
+				cell: 't:h-9 t:w-9 t:text-xs',
+			},
+		},
 	},
 })
 
-function OTPSlot({ index }: { index: number }) {
+function OTPSlot({ index, size }: { index: number; size: OTPInputSize }) {
 	const inputOTPContext = useContext(OTPInputContext)
 	const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
 
 	const state = useInternalState()
 	const config = state?.components?.otpInput
-	const { cell } = styles()
+	const { cell } = styles({ size })
 
 	return (
 		<div
@@ -41,14 +57,15 @@ function OTPSlot({ index }: { index: number }) {
 	)
 }
 
-export function OTPInput({ pattern = [], value, defaultValue, onChange }: OTPInputProps) {
+export function OTPInput({ pattern = [], size, value, defaultValue, onChange }: OTPInputProps) {
 	const state = useInternalState()
 	const config = state?.components?.otpInput
 
 	const resolvedPattern = pattern ?? config?.defaultProps?.pattern ?? []
+	const resolvedSize: OTPInputSize = size ?? 'md'
 	const maxLength = resolvedPattern.reduce((total, curr) => total + curr, 0)
 
-	const { root } = styles()
+	const { root } = styles({ size: resolvedSize })
 
 	const handleChange = (val: string) => {
 		onChange?.(val === '' ? null : val)
@@ -77,6 +94,7 @@ export function OTPInput({ pattern = [], value, defaultValue, onChange }: OTPInp
 								<OTPSlot
 									index={baseIndex + i}
 									key={i}
+									size={resolvedSize}
 								/>
 							))}
 						</div>

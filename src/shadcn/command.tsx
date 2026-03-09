@@ -1,11 +1,7 @@
-'use client'
-
-import type { DialogProps } from '@radix-ui/react-dialog'
 import { Command as CommandPrimitive } from 'cmdk'
 import { Search } from 'lucide-react'
 import * as React from 'react'
 
-import { Dialog, DialogContent } from '@/shadcn/dialog'
 import { cn } from '@/support/utils'
 
 const Command = React.forwardRef<
@@ -23,17 +19,6 @@ const Command = React.forwardRef<
 ))
 Command.displayName = CommandPrimitive.displayName
 
-const CommandDialog = ({ children, ...props }: DialogProps) => {
-	return (
-		<Dialog {...props}>
-			<DialogContent className="t:overflow-hidden t:p-0 t:shadow-lg">
-				<Command className="t:[&_[cmdk-group-heading]]:px-2 t:[&_[cmdk-group-heading]]:font-medium t:[&_[cmdk-group-heading]]:text-muted-foreground t:[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 t:[&_[cmdk-group]]:px-2 t:[&_[cmdk-input-wrapper]_svg]:h-5 t:[&_[cmdk-input-wrapper]_svg]:w-5 t:[&_[cmdk-input]]:h-12 t:[&_[cmdk-item]]:px-2 t:[&_[cmdk-item]]:py-3 t:[&_[cmdk-item]_svg]:h-5 t:[&_[cmdk-item]_svg]:w-5">
-					{children}
-				</Command>
-			</DialogContent>
-		</Dialog>
-	)
-}
 
 const CommandInput = React.forwardRef<
 	React.ElementRef<typeof CommandPrimitive.Input>,
@@ -148,7 +133,6 @@ CommandShortcut.displayName = 'CommandShortcut'
 
 export {
 	Command,
-	CommandDialog,
 	CommandInput,
 	CommandList,
 	CommandEmpty,

@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type SelectSlots =
 	| 'root'
 	| 'content'
@@ -18,6 +20,8 @@ export type SelectInfiniteProps = {
 	onLoadMore?: () => void
 }
 
+export type SelectSize = 'sm' | 'md' | 'lg'
+
 export type BaseSelectProps<T, O> = {
 	options: T[]
 	optionLabel: keyof T | ((option: T) => string)
@@ -35,6 +39,7 @@ export type BaseSelectProps<T, O> = {
 	disabled?: boolean
 	loading?: boolean
 	block?: boolean
+	size?: SelectSize
 }
 
 export type SelectSingleProps<T, I = string, O = I> = BaseSelectProps<T, O> & {
@@ -56,3 +61,5 @@ export type SelectProps<T, I = string, O = I, K extends SelectMode = SelectMode>
 	: K extends 'multiple'
 		? SelectMultipleProps<T, I, O>
 		: never
+
+export type SelectConfig = ComponentConfig<object, SelectSlots>

@@ -1,0 +1,125 @@
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
+import { ChevronDown } from 'lucide-react'
+import { forwardRef, useState } from 'react'
+import { tv } from 'tailwind-variants'
+
+import type { DocumentInputProps, DocumentType } from './document-input.types'
+
+import { MaskInput } from '@/components/mask-input'
+import { useInternalState } from '@/components/provider/provider.context'
+import { cn } from '@/support/utils'
+
+const CPF_MASK = '000.000.000-00'
+const CNPJ_MASK = '00.000.000/0000-00'
+
+
+function getMask(type: DocumentType): string | string[] {
+	if (type === 'cpf') return CPF_MASK
+	if (type === 'cnpj') return CNPJ_MASK
+	return [CPF_MASK, CNPJ_MASK]
+}
+
+
+function getLabel(type: DocumentType): string {
+	if (type === 'cpf') return 'CPF'
+	if (type === 'cnpj') return 'CNPJ'
+	return 'CPF / CNPJ'
+}
+
+const styles = tv({
+	slots: {
+		root: 't:relative t:flex t:w-full',
+		typeSelector:
+			't:flex t:h-10 t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:cursor-pointer t:disabled:pointer-events-none t:disabled:opacity-50',
+	},
+})
+
+export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
+	({ variant, value, defaultValue, onChange, placeholder, disabled, ...rest }, ref) => {
+		const state = useInternalState()
+		const config = state?.components?.documentInput
+
+		const [activeType, setActiveType] = useState<DocumentType>(
+			value?.type ?? defaultValue?.type ?? (variant === 'cpf_cnpj' ? 'cpf' : variant),
+		)
+
+		const resolvedType = variant === 'cpf_cnpj' ? activeType : variant
+		const mask = getMask(resolvedType)
+
+		function handleChange(raw: string | null) {
+			if (!raw) {
+				onChange?.(null)
+				return
+			}
+			onChange?.({ type: resolvedType, number: raw })
+		}
+
+		if (variant !== 'cpf_cnpj') {
+			return (
+				<MaskInput
+					{...rest}
+					defaultValue={defaultValue?.number}
+					disabled={disabled}
+					mask={mask}
+					placeholder={placeholder ?? (variant === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00')}
+					ref={ref}
+					value={value?.number}
+					onChange={handleChange}
+				/>
+			)
+		}
+
+		const { root, typeSelector } = styles()
+
+		return (
+			<div className={cn(root(), config?.classNames?.root)}>
+				<DropdownMenuPrimitive.Root>
+					<DropdownMenuPrimitive.Trigger asChild>
+						<button
+							className={cn(typeSelector(), config?.classNames?.typeSelector)}
+							disabled={disabled}
+							type="button"
+						>
+							<span>{getLabel(activeType)}</span>
+							<ChevronDown className="t:size-4 t:text-muted-foreground" />
+						</button>
+					</DropdownMenuPrimitive.Trigger>
+
+					<DropdownMenuPrimitive.Portal>
+						<DropdownMenuPrimitive.Content
+							align="start"
+							className="t:z-50 t:min-w-[8rem] t:overflow-hidden t:rounded-md t:border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:data-[state=open]:animate-in t:data-[state=closed]:animate-out t:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2"
+							sideOffset={4}
+						>
+							{(['cpf', 'cnpj'] as const).map((type) => (
+								<DropdownMenuPrimitive.Item
+									className="t:relative t:flex t:cursor-default t:select-none t:items-center t:rounded-sm t:px-2 t:py-1.5 t:text-sm t:outline-none t:transition-colors t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50"
+									key={type}
+									onClick={() => setActiveType(type)}
+								>
+									{getLabel(type)}
+								</DropdownMenuPrimitive.Item>
+							))}
+						</DropdownMenuPrimitive.Content>
+					</DropdownMenuPrimitive.Portal>
+				</DropdownMenuPrimitive.Root>
+
+				<div className="t:flex-1">
+					<MaskInput
+						{...rest}
+						block
+						className="t:rounded-l-none"
+						defaultValue={defaultValue?.number}
+						disabled={disabled}
+						key={resolvedType}
+						mask={mask}
+						placeholder={placeholder ?? 'CPF ou CNPJ'}
+						ref={ref}
+						value={value?.number}
+						onChange={handleChange}
+					/>
+				</div>
+			</div>
+		)
+	},
+)

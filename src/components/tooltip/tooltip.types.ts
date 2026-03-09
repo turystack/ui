@@ -3,7 +3,8 @@ export type TooltipSlots = 'root' | 'content'
 export type TooltipSide = 'top' | 'right' | 'bottom' | 'left'
 
 export type TooltipProps = {
-	content: string
+	content: React.ReactNode
 	side?: TooltipSide
 	sideOffset?: number
+	delayDuration?: number
 }

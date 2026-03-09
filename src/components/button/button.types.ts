@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type ButtonSlots = 'root' | 'loading' | 'leftSection' | 'rightSection'
 
 export type ButtonType = 'button' | 'submit' | 'reset'
@@ -26,3 +28,5 @@ export type ButtonProps = {
 	asChild?: boolean
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
+
+export type ButtonConfig = ComponentConfig<ButtonProps, ButtonSlots>

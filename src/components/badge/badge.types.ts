@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type BadgeSlots = 'root'
 
 export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline'
@@ -12,3 +14,5 @@ export type BadgeProps = {
 	asChild?: boolean
 	onClick?: React.MouseEventHandler<HTMLDivElement>
 }
+
+export type BadgeConfig = ComponentConfig<BadgeProps, BadgeSlots>

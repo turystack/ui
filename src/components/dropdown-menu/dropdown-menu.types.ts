@@ -31,7 +31,7 @@ export type DropdownMenuItemProps = {
 	variant?: DropdownMenuItemVariant
 	disabled?: boolean
 	asChild?: boolean
-	onClick?: React.MouseEventHandler<HTMLButtonElement>
+	onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
 export type DropdownMenuCheckboxItemSlots = 'root' | 'indicator'

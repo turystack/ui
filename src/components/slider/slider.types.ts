@@ -2,8 +2,11 @@ export type SliderSlots = 'root'
 
 export type SliderOrientation = 'horizontal' | 'vertical'
 
+export type SliderSize = 'sm' | 'md' | 'lg'
+
 type BaseSliderProps = {
 	orientation: SliderOrientation
+	size?: SliderSize
 }
 
 type SliderSingleProps = {

@@ -8,7 +8,7 @@ export const useColorScheme = () => {
 	const context = useContext(ColorSchemeContext)
 
 	if (!context) {
-		throw new Error('useColorScheme must be used within a TuryStackProvider')
+		throw new Error('useColorScheme must be used within a Provider')
 	}
 
 	return context

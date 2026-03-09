@@ -1,3 +1,4 @@
+import type { ComponentConfig } from '@/support/types'
 import type { InputProps } from "@/components/input/input.types"
 
 export type TagsInputSlots = 'root' | 'input' | 'tag' | 'tagRemove'
@@ -9,3 +10,5 @@ export type TagsInputProps = Omit<InputProps, 'value' | 'defaultValue' | 'onChan
 	allowDuplicates?: boolean
 	onChange?: (value: string[]) => void
 }
+
+export type TagsInputConfig = ComponentConfig<TagsInputProps, TagsInputSlots>

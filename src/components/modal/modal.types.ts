@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type ModalSlots = 'root' | 'overlay' | 'content' | 'close'
 
 export type ModalProps = {
@@ -28,4 +30,13 @@ export type ModalFooterSlots = 'root'
 
 export type ModalFooterProps = {
 	bordered?: boolean
+}
+
+export type ModalConfig = {
+	default?: ComponentConfig<ModalProps, ModalSlots>
+	header?: ComponentConfig<ModalHeaderProps, ModalHeaderSlots>
+	headerTitle?: ComponentConfig<ModalHeaderTitleProps, ModalHeaderTitleSlots>
+	headerDescription?: ComponentConfig<ModalHeaderDescriptionProps, ModalHeaderDescriptionSlots>
+	body?: ComponentConfig<ModalBodyProps, ModalBodySlots>
+	footer?: ComponentConfig<ModalFooterProps, ModalFooterSlots>
 }

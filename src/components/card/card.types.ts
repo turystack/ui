@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type CardSlots = 'root'
 
 export type CardProps = {
@@ -31,3 +33,13 @@ export type CardFooterProps = {
 export type CardSeparatorSlots = 'root'
 
 export type CardSeparatorProps = {}
+
+export type CardConfig = {
+	default?: ComponentConfig<CardProps, CardSlots>
+	header?: ComponentConfig<CardHeaderProps, CardHeaderSlots>
+	title?: ComponentConfig<CardTitleProps, CardTitleSlots>
+	description?: ComponentConfig<CardDescriptionProps, CardDescriptionSlots>
+	content?: ComponentConfig<CardContentProps, CardContentSlots>
+	footer?: ComponentConfig<CardFooterProps, CardFooterSlots>
+	separator?: ComponentConfig<CardSeparatorProps, CardSeparatorSlots>
+}

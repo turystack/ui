@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react'
 
-import type { TuryStackProviderProps } from './provider.types'
+import type { ProviderProps } from './provider.types'
 
 export const TuryStackContext = createContext<
-	TuryStackProviderProps | undefined
+	ProviderProps | undefined
 >(undefined)
 
 export function useInternalState() {

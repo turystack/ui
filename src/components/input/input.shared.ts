@@ -46,7 +46,7 @@ export const styles = tv({
 				input: 't:h-10',
 			},
 			sm: {
-				input: 't:h-8 t:text-sm',
+				input: 't:h-9 t:text-sm',
 			},
 		},
 	},

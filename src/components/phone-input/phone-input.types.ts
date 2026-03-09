@@ -1,3 +1,4 @@
+import type { ComponentConfig } from '@/support/types'
 import type { MaskInputProps } from '@/components/mask-input/mask-input.types'
 
 export type PhoneInputSlots =
@@ -28,3 +29,5 @@ export type PhoneInputProps = Omit<
 	defaultValue?: PhoneValue | null
 	onChange?: (value: PhoneValue | null) => void
 }
+
+export type PhoneInputConfig = ComponentConfig<PhoneInputProps, PhoneInputSlots>

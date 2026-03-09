@@ -13,6 +13,7 @@ const styles = tv({
 		size: 'md',
 	},
 	slots: {
+		description: 't:text-sm t:text-muted-foreground',
 		icon: '',
 		indicator: 't:grid t:place-content-center t:text-current',
 		label:
@@ -21,6 +22,11 @@ const styles = tv({
 		wrapper: 't:flex t:items-center t:gap-2',
 	},
 	variants: {
+		bordered: {
+			true: {
+				wrapper: 't:border t:rounded-md t:p-3 t:cursor-pointer',
+			},
+		},
 		size: {
 			lg: {
 				icon: 't:h-5 t:w-5',
@@ -62,9 +68,11 @@ const groupStyles = tv({
 
 function Root({
 	label,
+	description,
 	value,
 	size,
 	disabled,
+	bordered,
 	checked,
 	defaultChecked,
 	onChange,
@@ -80,12 +88,14 @@ function Root({
 		indicator,
 		icon,
 		label: labelClass,
+		description: descriptionClass,
 	} = styles({
+		bordered,
 		size: resolvedSize,
 	})
 
-	return (
-		<div className={cn(wrapper(), config?.classNames?.wrapper)}>
+	const content = (
+		<>
 			<CheckboxPrimitive.Root
 				checked={checked}
 				className={cn(root(), config?.classNames?.root)}
@@ -102,13 +112,30 @@ function Root({
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>
 			{label && (
-				<label
-					className={cn(labelClass(), config?.classNames?.label)}
-					htmlFor={id}
-				>
-					{label}
-				</label>
+				<div className={bordered ? 't:pointer-events-none' : undefined}>
+					<label
+						className={cn(labelClass(), config?.classNames?.label)}
+						htmlFor={bordered ? undefined : id}
+					>
+						{label}
+					</label>
+					{description && (
+						<p className={cn(descriptionClass(), config?.classNames?.description)}>
+							{description}
+						</p>
+					)}
+				</div>
 			)}
+		</>
+	)
+
+	if (bordered) {
+		return <label className={cn(wrapper(), config?.classNames?.wrapper)} htmlFor={id}>{content}</label>
+	}
+
+	return (
+		<div className={cn(wrapper(), config?.classNames?.wrapper)}>
+			{content}
 		</div>
 	)
 }

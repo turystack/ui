@@ -1,4 +1,5 @@
 import path from 'node:path'
+import pkg from './package.json'
 
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
@@ -15,14 +16,11 @@ export default defineConfig({
 			],
 		},
 		rollupOptions: {
-			external: [
-				'react',
-				'react-dom',
-				'react/jsx-runtime',
-				'@radix-ui/react-slot',
-				'lucide-react',
-			],
-		},
+      external: [
+        ...Object.keys(pkg.dependencies || {}),
+        ...Object.keys(pkg.peerDependencies || {}),
+      ],
+    },
 	},
 	plugins: [
 		tailwindcss(),
@@ -36,6 +34,13 @@ export default defineConfig({
 		}),
 	],
 	resolve: {
+		dedupe: [
+			'react',
+			'react-dom',
+			'react/jsx-runtime',
+			'@radix-ui/react-slot',
+			'lucide-react',
+		],
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},

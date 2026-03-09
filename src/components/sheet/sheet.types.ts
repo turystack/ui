@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type SheetSlots = 'root' | 'overlay' | 'content' | 'close'
 
 export type SheetSide = 'top' | 'right' | 'bottom' | 'left'
@@ -31,4 +33,13 @@ export type SheetFooterSlots = 'root'
 
 export type SheetFooterProps = {
 	bordered?: boolean
+}
+
+export type SheetConfig = {
+	default?: ComponentConfig<SheetProps, SheetSlots>
+	header?: ComponentConfig<SheetHeaderProps, SheetHeaderSlots>
+	body?: ComponentConfig<SheetBodyProps, SheetBodySlots>
+	footer?: ComponentConfig<SheetFooterProps, SheetFooterSlots>
+	title?: ComponentConfig<SheetTitleProps, SheetTitleSlots>
+	description?: ComponentConfig<SheetDescriptionProps, SheetDescriptionSlots>
 }

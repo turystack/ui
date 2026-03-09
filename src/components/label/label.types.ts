@@ -5,6 +5,7 @@ export type LabelProps = {
 	required?: boolean
 	optional?: boolean
 	disabled?: boolean
+	tooltip?: React.ReactNode
 }
 
 export type WithLabelProps<T> = T & {

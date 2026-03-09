@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type AccordionSlots = 'root'
 
 export type AccordionType = 'single' | 'multiple'
@@ -40,3 +42,10 @@ export type AccordionTrigger = {}
 export type AccordionContentSlots = 'root' | 'inner'
 
 export type AccordionContent = {}
+
+export type AccordionConfig = {
+	default?: ComponentConfig<AccordionProps, AccordionSlots>
+	item?: ComponentConfig<AccordionItem, AccordionItemSlots>
+	trigger?: ComponentConfig<AccordionTrigger, AccordionTriggerSlots>
+	content?: ComponentConfig<AccordionContent, AccordionContentSlots>
+}

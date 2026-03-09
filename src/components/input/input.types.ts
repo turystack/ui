@@ -1,3 +1,5 @@
+import type { ComponentConfig } from '@/support/types'
+
 export type InputType = 'text' | 'password'
 
 export type InputSlots = 'root' | 'input' | 'leftSection' | 'rightSection' | 'loader'
@@ -23,3 +25,5 @@ export type InputProps = {
 	onChange?: (value: string | null) => void
 	onClick?: React.MouseEventHandler<HTMLDivElement>
 }
+
+export type InputConfig = ComponentConfig<InputProps, InputSlots>
