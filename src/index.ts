@@ -43,7 +43,6 @@ export * from './components/table'
 export * from './components/tabs'
 export * from './components/tags-input'
 export * from './components/textarea'
-export { applyTheme, getThemeScript, resolveTheme, useTheme } from './components/theme'
 export type {
 	ThemeBaseColor,
 	ThemeFont,
@@ -52,7 +51,17 @@ export type {
 	ThemeRadius,
 	ThemeStyle,
 } from './components/theme'
+export {
+	applyTheme,
+	getThemeScript,
+	resolveTheme,
+	useTheme,
+} from './components/theme'
+export * from './components/toast'
 export * from './components/toast'
 export * from './components/tooltip'
+export * from './components/tooltip'
 export * from './components/typography'
+export * from './components/typography'
+export * from './components/uploader'
 export * from './components/uploader'
