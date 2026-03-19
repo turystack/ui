@@ -8,15 +8,22 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
-		root: 't:animate-pulse t:rounded-md t:bg-muted t:h-full t:w-full t:block',
+		root: 't:block t:h-full t:w-full t:animate-pulse t:rounded-md t:bg-muted',
 	},
 })
 
-export function Skeleton({ children, className }: PropsWithChildren<SkeletonProps>) {
+export function Skeleton({
+	children,
+	className,
+}: PropsWithChildren<SkeletonProps>) {
 	const state = useInternalState()
 	const config = state?.components?.skeleton
 
 	const { root } = styles()
 
-	return <div className={cn(root(), config?.classNames?.root, className)}>{children}</div>
+	return (
+		<div className={cn(root(), config?.classNames?.root, className)}>
+			{children}
+		</div>
+	)
 }

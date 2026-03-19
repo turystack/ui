@@ -1,4 +1,11 @@
-export type UploaderSlots = 'root' | 'fileList' | 'fileItem' | 'fileName' | 'progress' | 'remove' | 'icon'
+export type UploaderSlots =
+	| 'root'
+	| 'fileList'
+	| 'fileItem'
+	| 'fileName'
+	| 'progress'
+	| 'remove'
+	| 'icon'
 
 export type UploaderHandlerResponse = {
 	fileName: string
@@ -14,17 +21,12 @@ type BaseUploaderProps = {
 }
 
 type SingleUploaderProps = {
-	onUpload?: (
-		response: UploaderHandlerResponse,
-		index: number,
-	) => void
+	onUpload?: (response: UploaderHandlerResponse, index: number) => void
 }
 
 type MultipleUploaderProps = {
-	onUpload?: (
-		response: UploaderHandlerResponse[],
-		index: number,
-	) => void
+	onUpload?: (response: UploaderHandlerResponse[], index: number) => void
 }
 
-export type UploaderProps = BaseUploaderProps & (SingleUploaderProps | MultipleUploaderProps)
+export type UploaderProps = BaseUploaderProps &
+	(SingleUploaderProps | MultipleUploaderProps)

@@ -24,7 +24,9 @@ const styles = tv({
 })
 
 export function LoadingOverlay({ visible = false }: LoadingOverlayProps) {
-	const { root, loader } = styles({ visible })
+	const { root, loader } = styles({
+		visible,
+	})
 
 	return (
 		<div className={root()}>

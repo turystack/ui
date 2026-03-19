@@ -49,14 +49,22 @@ export type SelectSingleProps<T, I = string, O = I> = BaseSelectProps<T, O> & {
 	onChange?: (value: O | null) => void
 }
 
-export type SelectMultipleProps<T, I = string, O = I> = BaseSelectProps<T, O> & {
+export type SelectMultipleProps<T, I = string, O = I> = BaseSelectProps<
+	T,
+	O
+> & {
 	mode: 'multiple'
 	value?: I[]
 	defaultValue?: I[]
 	onChange?: (value: O[]) => void
 }
 
-export type SelectProps<T, I = string, O = I, K extends SelectMode = SelectMode> = K extends 'single'
+export type SelectProps<
+	T,
+	I = string,
+	O = I,
+	K extends SelectMode = SelectMode,
+> = K extends 'single'
 	? SelectSingleProps<T, I, O>
 	: K extends 'multiple'
 		? SelectMultipleProps<T, I, O>

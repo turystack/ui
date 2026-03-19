@@ -1,12 +1,13 @@
 import { Eye, EyeOff } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 
-import type { InputProps } from './input.types'
+import { useDebounceFn } from '@/hooks'
+
 import { styles } from './input.shared'
+import type { InputProps } from './input.types'
 
 import { Loader } from '@/components/loader'
 import { useInternalState } from '@/components/provider/provider.context'
-import { useDebounceFn } from '@/hooks'
 import { cn } from '@/support/utils'
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			onClick,
 			readOnly,
 			onChange,
+			...rest
 		},
 		ref,
 	) => {
@@ -73,35 +75,32 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		}
 
 		return (
-			<div className={cn(root(), config?.classNames?.root, rootClassName)} onClick={onClick}>
+			<div
+				className={cn(root(), config?.classNames?.root, rootClassName)}
+				onClick={onClick}
+			>
 				{hasLeft && (
 					<div
-						className={cn(
-							leftSectionClass(),
-							config?.classNames?.leftSection,
-						)}
+						className={cn(leftSectionClass(), config?.classNames?.leftSection)}
 					>
 						{leftSection}
 					</div>
 				)}
 
 				<input
+					{...rest}
+					className={cn(input(), config?.classNames?.input, className)}
 					defaultValue={
 						resolvedDebounce ? (value ?? defaultValue ?? undefined) : undefined
 					}
 					disabled={resolvedDisabled}
-					className={cn(input(), config?.classNames?.input, className)}
-					style={style}
-					onChange={
-						resolvedDebounce ? handleDebouncedChange : handleChange
-					}
+					onChange={resolvedDebounce ? handleDebouncedChange : handleChange}
 					placeholder={placeholder}
 					readOnly={readOnly}
 					ref={ref}
+					style={style}
 					type={inputType}
-					value={
-						!resolvedDebounce ? (value ?? undefined) : undefined
-					}
+					value={!resolvedDebounce ? (value ?? undefined) : undefined}
 				/>
 
 				{(hasRight || resolvedLoading) && (
@@ -121,9 +120,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 						{isPassword && (
 							<button
-								aria-label={
-									showPassword ? 'Hide password' : 'Show password'
-								}
+								aria-label={showPassword ? 'Hide password' : 'Show password'}
 								className="t:pointer-events-auto t:flex t:items-center t:justify-center t:text-muted-foreground t:transition-colors hover:t:text-foreground"
 								onClick={togglePasswordVisibility}
 								type="button"

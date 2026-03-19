@@ -19,7 +19,14 @@ const styles = tv({
 		list: 't:inline-flex t:h-10 t:items-center t:justify-center t:rounded-md t:bg-muted t:p-1 t:text-muted-foreground',
 		root: '',
 		trigger:
-			't:inline-flex t:items-center t:justify-center t:whitespace-nowrap t:rounded-sm t:px-3 t:py-1.5 t:font-medium t:text-sm t:ring-offset-background t:transition-all t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:cursor-pointer t:disabled:pointer-events-none t:disabled:opacity-50 t:data-[state=active]:bg-background t:data-[state=active]:text-foreground t:data-[state=active]:shadow-sm',
+			't:inline-flex t:cursor-pointer t:items-center t:justify-center t:whitespace-nowrap t:rounded-sm t:px-3 t:py-1.5 t:font-medium t:text-sm t:ring-offset-background t:transition-all t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:pointer-events-none t:disabled:opacity-50 t:data-[state=active]:bg-background t:data-[state=active]:text-foreground t:data-[state=active]:shadow-sm',
+	},
+	variants: {
+		justified: {
+			true: {
+				list: 't:flex t:w-full t:[&>[role=tab]]:flex-1',
+			},
+		},
 	},
 })
 
@@ -52,16 +59,12 @@ function List({ children, justified }: PropsWithChildren<TabsListProps>) {
 	const state = useInternalState()
 	const config = state?.components?.tabs?.list
 
-	const { list } = styles()
+	const { list } = styles({
+		justified,
+	})
 
 	return (
-		<TabsPrimitive.List
-			className={cn(
-				list(),
-				justified && 't:flex t:w-full t:[&>[role=tab]]:flex-1',
-				config?.classNames?.root,
-			)}
-		>
+		<TabsPrimitive.List className={cn(list(), config?.classNames?.root)}>
 			{children}
 		</TabsPrimitive.List>
 	)

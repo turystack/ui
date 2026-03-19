@@ -17,6 +17,11 @@ const styles = tv({
 		root: 't:flex t:items-center t:gap-2 t:has-[:disabled]:opacity-50',
 	},
 	variants: {
+		active: {
+			true: {
+				cell: 't:z-10 t:ring-2 t:ring-ring t:ring-offset-background',
+			},
+		},
 		size: {
 			lg: {
 				cell: 't:h-11 t:w-11',
@@ -37,16 +42,13 @@ function OTPSlot({ index, size }: { index: number; size: OTPInputSize }) {
 
 	const state = useInternalState()
 	const config = state?.components?.otpInput
-	const { cell } = styles({ size })
+	const { cell } = styles({
+		active: isActive,
+		size,
+	})
 
 	return (
-		<div
-			className={cn(
-				cell(),
-				isActive && 't:z-10 t:ring-2 t:ring-ring t:ring-offset-background',
-				config?.classNames?.cell,
-			)}
-		>
+		<div className={cn(cell(), config?.classNames?.cell)}>
 			{char}
 			{hasFakeCaret && (
 				<div className="t:pointer-events-none t:absolute t:inset-0 t:flex t:items-center t:justify-center">
@@ -57,7 +59,13 @@ function OTPSlot({ index, size }: { index: number; size: OTPInputSize }) {
 	)
 }
 
-export function OTPInput({ pattern = [], size, value, defaultValue, onChange }: OTPInputProps) {
+export function OTPInput({
+	pattern = [],
+	size,
+	value,
+	defaultValue,
+	onChange,
+}: OTPInputProps) {
 	const state = useInternalState()
 	const config = state?.components?.otpInput
 
@@ -65,7 +73,9 @@ export function OTPInput({ pattern = [], size, value, defaultValue, onChange }: 
 	const resolvedSize: OTPInputSize = size ?? 'md'
 	const maxLength = resolvedPattern.reduce((total, curr) => total + curr, 0)
 
-	const { root } = styles({ size: resolvedSize })
+	const { root } = styles({
+		size: resolvedSize,
+	})
 
 	const handleChange = (val: string) => {
 		onChange?.(val === '' ? null : val)
@@ -87,13 +97,15 @@ export function OTPInput({ pattern = [], size, value, defaultValue, onChange }: 
 				return (
 					<div
 						className="t:flex t:items-center"
-						key={index}
+						key={`group-${baseIndex}`}
 					>
 						<div className="t:flex t:items-center">
-							{Array.from({ length }).map((_, i) => (
+							{Array.from({
+								length,
+							}).map((_, i) => (
 								<OTPSlot
 									index={baseIndex + i}
-									key={i}
+									key={`slot-${baseIndex + i}`}
 									size={resolvedSize}
 								/>
 							))}

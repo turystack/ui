@@ -1,4 +1,5 @@
 import type { PaginationProps } from '@/components/pagination/pagination.types'
+import type { ComponentConfig } from '@/support/types'
 
 export type TableSlots =
 	| 'root'
@@ -32,6 +33,8 @@ export type TableProps<T> = {
 	items?: TableItems<T>
 	itemKey: keyof T
 	selection?: TableSelection
+	selectedKeys?: string[]
+	defaultSelectedKeys?: string[]
 	pagination?: PaginationProps
 	sort?: string
 	hidePagination?: boolean
@@ -41,3 +44,5 @@ export type TableProps<T> = {
 	onSelectionChange?: (value: string[]) => void
 	onSortChange?: (sort?: string) => void
 }
+
+export type TableConfig = ComponentConfig<object, TableSlots>

@@ -87,3 +87,35 @@ export type DropdownMenuSubTriggerProps = {
 export type DropdownMenuSubContentSlots = 'root'
 
 export type DropdownMenuSubContentProps = {}
+
+import type { ComponentConfig } from '@/support/types'
+
+export type DropdownMenuConfig = {
+	content?: ComponentConfig<DropdownMenuContentProps, DropdownMenuContentSlots>
+	item?: ComponentConfig<DropdownMenuItemProps, DropdownMenuItemSlots>
+	checkboxItem?: ComponentConfig<
+		DropdownMenuCheckboxItemProps,
+		DropdownMenuCheckboxItemSlots
+	>
+	radioItem?: ComponentConfig<
+		DropdownMenuRadioItemProps,
+		DropdownMenuRadioItemSlots
+	>
+	label?: ComponentConfig<DropdownMenuLabelProps, DropdownMenuLabelSlots>
+	separator?: ComponentConfig<
+		DropdownMenuSeparatorProps,
+		DropdownMenuSeparatorSlots
+	>
+	subTrigger?: ComponentConfig<
+		DropdownMenuSubTriggerProps,
+		DropdownMenuSubTriggerSlots
+	>
+	subContent?: ComponentConfig<
+		DropdownMenuSubContentProps,
+		DropdownMenuSubContentSlots
+	>
+	shortcut?: ComponentConfig<
+		DropdownMenuShortcutProps,
+		DropdownMenuShortcutSlots
+	>
+}

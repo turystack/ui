@@ -1,6 +1,12 @@
 import type { ButtonProps } from '@/components/button/button.types'
 
-export type ConfirmSlots = 'root' | 'overlay' | 'content' | 'title' | 'description' | 'actions'
+export type ConfirmSlots =
+	| 'root'
+	| 'overlay'
+	| 'content'
+	| 'title'
+	| 'description'
+	| 'actions'
 
 export type ConfirmProps = {
 	open?: boolean

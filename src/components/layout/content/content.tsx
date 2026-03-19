@@ -1,36 +1,60 @@
 import type { PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 
+import type { LayoutContentProps } from './content.types'
+
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
 
-import type { LayoutContentProps } from './layout.types'
-
 const contentStyles = tv({
 	slots: {
-		root: 't:flex-1 t:overflow-auto',
 		inner: '',
+		root: 't:flex-1 t:overflow-auto',
 	},
 	variants: {
+		maxWidth: {
+			lg: {
+				inner: 't:mx-auto t:w-full t:max-w-6xl',
+			},
+			md: {
+				inner: 't:mx-auto t:w-full t:max-w-4xl',
+			},
+			sm: {
+				inner: 't:mx-auto t:w-full t:max-w-2xl',
+			},
+		},
 		padding: {
-			sm: { inner: 't:p-2' },
-			md: { inner: 't:p-4' },
-			lg: { inner: 't:p-8' },
+			lg: {
+				inner: 't:p-8',
+			},
+			md: {
+				inner: 't:p-4',
+			},
+			sm: {
+				inner: 't:p-2',
+			},
 		},
 		paddingHorizontal: {
-			sm: { inner: 't:px-2' },
-			md: { inner: 't:px-4' },
-			lg: { inner: 't:px-8' },
+			lg: {
+				inner: 't:px-8',
+			},
+			md: {
+				inner: 't:px-4',
+			},
+			sm: {
+				inner: 't:px-2',
+			},
 		},
 		paddingVertical: {
-			sm: { inner: 't:py-2' },
-			md: { inner: 't:py-4' },
-			lg: { inner: 't:py-8' },
-		},
-		maxWidth: {
-			sm: { inner: 't:max-w-2xl t:mx-auto t:w-full' },
-			md: { inner: 't:max-w-4xl t:mx-auto t:w-full' },
-			lg: { inner: 't:max-w-6xl t:mx-auto t:w-full' },
+			lg: {
+				inner: 't:py-8',
+			},
+			md: {
+				inner: 't:py-4',
+			},
+			sm: {
+				inner: 't:py-2',
+			},
 		},
 	},
 })
@@ -44,7 +68,12 @@ export function LayoutContent({
 }: PropsWithChildren<LayoutContentProps>) {
 	const state = useInternalState()
 	const config = state?.components?.layout?.content
-	const { root, inner } = contentStyles({ padding, paddingHorizontal, paddingVertical, maxWidth })
+	const { root, inner } = contentStyles({
+		maxWidth,
+		padding,
+		paddingHorizontal,
+		paddingVertical,
+	})
 	return (
 		<main className={cn(root(), config?.classNames?.root)}>
 			<div className={cn(inner(), config?.classNames?.inner)}>{children}</div>

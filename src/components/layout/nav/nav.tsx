@@ -3,26 +3,52 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import { ChevronDown } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
+import { tv } from 'tailwind-variants'
+
+import type { NavProps, SidebarNavItem, SidebarNavSubItem } from './nav.types'
 
 import { Tooltip } from '@/components/tooltip/tooltip'
 import { cn } from '@/support/utils'
-
 import { useSidebar } from '../context'
-import type { NavProps, SidebarNavItem, SidebarNavSubItem } from './nav.types'
+
+const chevronStyles = tv({
+	base: 't:h-4 t:w-4 t:shrink-0 t:text-muted-foreground t:transition-transform t:duration-200',
+	variants: {
+		open: {
+			true: 't:rotate-180',
+		},
+	},
+})
 
 const popoverContentClass =
 	't:z-50 t:min-w-[180px] t:rounded-md t:border t:border-border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:outline-none t:data-[state=open]:animate-in t:data-[state=closed]:animate-out t:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=right]:slide-in-from-left-2'
 
-function NavSubItem({ sub, inPopover }: { sub: SidebarNavSubItem; inPopover?: boolean }) {
+function NavSubItem({
+	sub,
+	inPopover,
+}: {
+	sub: SidebarNavSubItem
+	inPopover?: boolean
+}) {
 	const Icon = sub.icon
 	return (
 		<div
 			className={cn(
-				't:flex t:w-full t:items-center t:text-sm t:transition-colors t:cursor-pointer',
+				't:flex t:w-full t:cursor-pointer t:items-center t:text-sm t:transition-colors',
 				't:hover:bg-accent t:hover:text-accent-foreground',
 				inPopover
-					? cn('t:gap-2 t:rounded-sm t:px-2 t:py-1.5', sub.active ? 't:text-popover-foreground t:font-medium' : 't:text-muted-foreground')
-					: cn('t:gap-3 t:rounded-md t:px-2 t:py-1.5', sub.active ? 't:text-foreground t:font-medium' : 't:text-muted-foreground'),
+					? cn(
+							't:gap-2 t:rounded-sm t:px-2 t:py-1.5',
+							sub.active
+								? 't:font-medium t:text-popover-foreground'
+								: 't:text-muted-foreground',
+						)
+					: cn(
+							't:gap-3 t:rounded-md t:px-2 t:py-1.5',
+							sub.active
+								? 't:font-medium t:text-foreground'
+								: 't:text-muted-foreground',
+						),
 			)}
 		>
 			{Icon && <Icon className="t:h-3.5 t:w-3.5 t:shrink-0" />}
@@ -50,11 +76,17 @@ function CollapsedNavItemWithChildren({
 			<TooltipPrimitive.Root open={popoverOpen ? false : undefined}>
 				<TooltipPrimitive.Trigger asChild>
 					<div>
-						<PopoverPrimitive.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
+						<PopoverPrimitive.Root
+							onOpenChange={setPopoverOpen}
+							open={popoverOpen}
+						>
 							<PopoverPrimitive.Trigger asChild>
-								<div className={itemClass} role="button">
+								<button
+									className={itemClass}
+									type="button"
+								>
 									{iconEl}
-								</div>
+								</button>
 							</PopoverPrimitive.Trigger>
 							<PopoverPrimitive.Portal>
 								<PopoverPrimitive.Content
@@ -62,12 +94,16 @@ function CollapsedNavItemWithChildren({
 									side="right"
 									sideOffset={16}
 								>
-									<div className="t:px-2 t:py-1.5 t:text-xs t:font-semibold t:text-popover-foreground">
+									<div className="t:px-2 t:py-1.5 t:font-semibold t:text-popover-foreground t:text-xs">
 										{item.label}
 									</div>
-									<div className="t:h-px t:bg-border t:my-1" />
-									{item.children!.map((sub, i) => (
-										<NavSubItem key={i} sub={sub} inPopover />
+									<div className="t:my-1 t:h-px t:bg-border" />
+									{item.children!.map((sub) => (
+										<NavSubItem
+											inPopover
+											key={sub.href ?? sub.label}
+											sub={sub}
+										/>
 									))}
 								</PopoverPrimitive.Content>
 							</PopoverPrimitive.Portal>
@@ -75,7 +111,11 @@ function CollapsedNavItemWithChildren({
 					</div>
 				</TooltipPrimitive.Trigger>
 				<TooltipPrimitive.Portal>
-					<TooltipPrimitive.Content className={tooltipContentClass} side="right" sideOffset={8}>
+					<TooltipPrimitive.Content
+						className={tooltipContentClass}
+						side="right"
+						sideOffset={8}
+					>
 						{item.label}
 					</TooltipPrimitive.Content>
 				</TooltipPrimitive.Portal>
@@ -86,66 +126,88 @@ function CollapsedNavItemWithChildren({
 
 function NavItem({ item }: { item: SidebarNavItem }) {
 	const { collapsed } = useSidebar()
-	const [open, setOpen] = useState(item.children?.some((c) => c.active) ?? false)
+	const [open, setOpen] = useState(
+		item.children?.some((c) => c.active) ?? false,
+	)
 	const Icon = item.icon
 	const hasChildren = !!item.children?.length
 
 	const itemClass = cn(
-		't:group t:flex t:w-full t:items-center t:rounded-md t:text-sm t:transition-colors t:cursor-pointer',
+		't:group t:flex t:w-full t:cursor-pointer t:items-center t:rounded-md t:text-sm t:transition-colors',
 		't:hover:bg-accent t:hover:text-accent-foreground',
-		item.active ? 't:bg-accent t:text-accent-foreground t:font-medium' : 't:text-muted-foreground',
+		item.active
+			? 't:bg-accent t:font-medium t:text-accent-foreground'
+			: 't:text-muted-foreground',
 	)
 
 	const iconEl = Icon ? <Icon className="t:h-4 t:w-4 t:shrink-0" /> : null
 
 	if (collapsed) {
-		const collapsedClass = cn(itemClass, 't:justify-center t:h-9 t:w-full t:px-0')
+		const collapsedClass = cn(
+			itemClass,
+			't:h-9 t:w-full t:justify-center t:px-0',
+		)
 
 		if (hasChildren) {
 			return (
-				<CollapsedNavItemWithChildren item={item} itemClass={collapsedClass} iconEl={iconEl} />
+				<CollapsedNavItemWithChildren
+					iconEl={iconEl}
+					item={item}
+					itemClass={collapsedClass}
+				/>
 			)
 		}
 
 		return (
-			<Tooltip content={item.label} side="right" sideOffset={8}>
-				<div className={collapsedClass} role="button">
+			<Tooltip
+				content={item.label}
+				side="right"
+				sideOffset={8}
+			>
+				<button
+					className={collapsedClass}
+					type="button"
+				>
 					{iconEl}
-				</div>
+				</button>
 			</Tooltip>
 		)
 	}
 
 	return (
 		<div className="t:flex t:flex-col">
-			<div
+			<button
 				className={cn(itemClass, 't:gap-3 t:px-2 t:py-2')}
-				role="button"
 				onClick={() => hasChildren && setOpen((p) => !p)}
+				type="button"
 			>
 				{iconEl}
-				<span className="t:flex-1 t:text-left t:truncate">{item.label}</span>
+				<span className="t:flex-1 t:truncate t:text-left">{item.label}</span>
 				{hasChildren && (
 					<ChevronDown
-						className={cn(
-							't:h-4 t:w-4 t:shrink-0 t:text-muted-foreground t:transition-transform t:duration-200',
-							open && 't:rotate-180',
-						)}
+						className={chevronStyles({
+							open,
+						})}
 					/>
 				)}
-			</div>
+			</button>
 
 			{hasChildren && (
 				<div
 					className={cn(
 						't:grid t:transition-[grid-template-rows,opacity] t:duration-200',
-						open ? 't:grid-rows-[1fr] t:opacity-100' : 't:grid-rows-[0fr] t:opacity-0',
+						open
+							? 't:grid-rows-[1fr] t:opacity-100'
+							: 't:grid-rows-[0fr] t:opacity-0',
 					)}
 				>
-					<div className="t:overflow-hidden t:min-h-0">
-						<div className="t:ml-3 t:border-l t:border-border t:pl-2 t:mt-0.5 t:pb-0.5 t:flex t:flex-col t:gap-0.5">
-							{item.children!.map((sub, i) => (
-								<NavSubItem key={i} sub={sub} />
+					<div className="t:min-h-0 t:overflow-hidden">
+						<div className="t:mt-0.5 t:ml-3 t:flex t:flex-col t:gap-0.5 t:border-border t:border-l t:pb-0.5 t:pl-2">
+							{item.children!.map((sub) => (
+								<NavSubItem
+									key={sub.href ?? sub.label}
+									sub={sub}
+								/>
 							))}
 						</div>
 					</div>
@@ -167,12 +229,31 @@ export function LayoutNav({ items }: NavProps) {
 	const { collapsed } = useSidebar()
 	return (
 		<nav className="t:flex t:flex-col t:gap-1 t:p-2">
-			{items.map((entry, i) => {
-				if (entry.type === 'divider') {
-					return <NavDivider key={i} collapsed={collapsed} />
-				}
-				return <NavItem key={i} item={entry.item} />
-			})}
+			{items
+				.map((entry) => {
+					if (entry.type === 'divider') {
+						return null
+					}
+					return (
+						<NavItem
+							item={entry.item}
+							key={entry.item.href ?? entry.item.label}
+						/>
+					)
+				})
+				.reduce<React.ReactElement[]>((acc, el) => {
+					if (el === null) {
+						acc.push(
+							<NavDivider
+								collapsed={collapsed}
+								key={`divider-after-${acc.length}`}
+							/>,
+						)
+					} else {
+						acc.push(el)
+					}
+					return acc
+				}, [])}
 		</nav>
 	)
 }

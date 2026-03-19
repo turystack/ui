@@ -13,8 +13,8 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
-		content: 't:w-auto t:p-2',
 		calendar: '',
+		content: 't:w-auto t:p-2',
 	},
 })
 
@@ -68,13 +68,13 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 			>
 				<PopoverTrigger asChild>
 					<Input
-						className="t:cursor-pointer t:text-left"
-						rootClassName="t:min-w-[160px]"
 						block={resolvedBlock}
+						className="t:cursor-pointer t:text-left"
 						disabled={resolvedDisabled}
 						leftSection={<CalendarIcon className="t:h-4 t:w-4" />}
 						loading={loading}
 						readOnly
+						rootClassName="t:min-w-[160px]"
 						size={size}
 						value={formatDate(currentValue)}
 					/>

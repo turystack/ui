@@ -13,12 +13,15 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
-		content: 't:w-auto t:p-2',
 		calendar: '',
+		content: 't:w-auto t:p-2',
 	},
 })
 
-export const DateRangeInput = forwardRef<HTMLButtonElement, DateRangeInputProps>(
+export const DateRangeInput = forwardRef<
+	HTMLButtonElement,
+	DateRangeInputProps
+>(
 	(
 		{
 			value,
@@ -74,11 +77,11 @@ export const DateRangeInput = forwardRef<HTMLButtonElement, DateRangeInputProps>
 					<Input
 						block={resolvedBlock}
 						className="t:cursor-pointer t:text-left"
-						rootClassName="t:min-w-[235px]"
 						disabled={resolvedDisabled}
 						leftSection={<CalendarIcon className="t:h-4 t:w-4" />}
 						loading={loading}
 						readOnly
+						rootClassName="t:min-w-[235px]"
 						size={size}
 						value={formatDateRange(currentValue)}
 					/>
@@ -96,7 +99,10 @@ export const DateRangeInput = forwardRef<HTMLButtonElement, DateRangeInputProps>
 						onSelect={handleSelect}
 						selected={
 							currentValue
-								? { from: currentValue.from, to: currentValue.to }
+								? {
+										from: currentValue.from,
+										to: currentValue.to,
+									}
 								: undefined
 						}
 					/>

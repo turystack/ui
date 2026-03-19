@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { tv } from 'tailwind-variants'
 
 import type { TableProps } from './table.types'
@@ -7,6 +7,7 @@ import type { TableProps } from './table.types'
 import { Checkbox } from '@/components/checkbox'
 import { LoadingOverlay } from '@/components/loading-overlay'
 import { Pagination } from '@/components/pagination'
+import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
 
 const styles = tv({
@@ -16,16 +17,32 @@ const styles = tv({
 		empty: 't:py-12 t:text-center t:text-muted-foreground t:text-sm',
 		header: '',
 		headerCell:
-			't:px-4 t:py-3 t:text-left t:text-xs t:font-medium t:text-muted-foreground t:uppercase t:tracking-wide',
+			't:px-4 t:py-3 t:text-left t:font-medium t:text-muted-foreground t:text-xs t:uppercase t:tracking-wide',
 		root: 't:relative t:w-full t:overflow-auto t:rounded-md t:border',
 		row: 't:border-b t:transition-colors t:hover:bg-muted/50',
 		selection: '',
 		table: 't:w-full t:caption-bottom t:text-sm',
 	},
 	variants: {
+		align: {
+			center: {
+				cell: 't:text-center',
+				headerCell: 't:text-center',
+			},
+			left: {},
+			right: {
+				cell: 't:text-right',
+				headerCell: 't:text-right',
+			},
+		},
 		clickable: {
 			true: {
 				row: 't:cursor-pointer',
+			},
+		},
+		selected: {
+			true: {
+				row: 't:bg-muted/30',
 			},
 		},
 		sorter: {
@@ -40,7 +57,9 @@ function SortIcon({ columnKey, sort }: { columnKey: string; sort?: string }) {
 	if (!sort || (sort !== columnKey && sort !== `-${columnKey}`)) {
 		return <ArrowUpDown className="t:ml-1 t:inline-block t:h-3 t:w-3" />
 	}
-	if (sort === columnKey) return <ArrowUp className="t:ml-1 t:inline-block t:h-3 t:w-3" />
+	if (sort === columnKey) {
+		return <ArrowUp className="t:ml-1 t:inline-block t:h-3 t:w-3" />
+	}
 	return <ArrowDown className="t:ml-1 t:inline-block t:h-3 t:w-3" />
 }
 
@@ -49,6 +68,8 @@ export function Table<T extends object>({
 	items = [],
 	itemKey,
 	selection = 'none',
+	selectedKeys: selectedKeysProp,
+	defaultSelectedKeys,
 	pagination,
 	sort,
 	hidePagination = false,
@@ -58,7 +79,24 @@ export function Table<T extends object>({
 	onSelectionChange,
 	onSortChange,
 }: TableProps<T>) {
-	const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+	const [internalKeys, setInternalKeys] = useState<string[]>(
+		selectedKeysProp ?? defaultSelectedKeys ?? [],
+	)
+
+	const isControlled = selectedKeysProp !== undefined
+	const selectedKeys = isControlled ? selectedKeysProp : internalKeys
+
+	const state = useInternalState()
+	const config = state?.components?.table
+
+	useEffect(() => {
+		if (isControlled && selectedKeysProp) {
+			setInternalKeys(selectedKeysProp)
+		}
+	}, [
+		isControlled,
+		selectedKeysProp,
+	])
 
 	const {
 		root,
@@ -66,29 +104,40 @@ export function Table<T extends object>({
 		header,
 		headerCell,
 		body,
-		row,
 		cell,
 		empty,
-	} = styles({ clickable: !!onRowClick })
+		selection: selectionClass,
+	} = styles({
+		clickable: !!onRowClick,
+	})
 
 	const visibleColumns = columns.filter((col) => !col.hide)
 	const hasSelection = selection === 'multiple'
 
 	const allKeys = items.map((item) => String(item[itemKey]))
-	const allSelected = allKeys.length > 0 && allKeys.every((k) => selectedKeys.includes(k))
+	const allSelected =
+		allKeys.length > 0 && allKeys.every((k) => selectedKeys.includes(k))
+
+	function updateSelection(next: string[]) {
+		if (!isControlled) {
+			setInternalKeys(next)
+		}
+		onSelectionChange?.(next)
+	}
 
 	function handleSelectAll(checked: boolean) {
 		const next = checked ? allKeys : []
-		setSelectedKeys(next)
-		onSelectionChange?.(next)
+		updateSelection(next)
 	}
 
 	function handleSelectRow(key: string, checked: boolean) {
 		const next = checked
-			? [...selectedKeys, key]
+			? [
+					...selectedKeys,
+					key,
+				]
 			: selectedKeys.filter((k) => k !== key)
-		setSelectedKeys(next)
-		onSelectionChange?.(next)
+		updateSelection(next)
 	}
 
 	function handleSort(columnKey: string) {
@@ -103,13 +152,20 @@ export function Table<T extends object>({
 
 	return (
 		<div className="t:space-y-2">
-			<div className={root()}>
+			<div className={cn(root(), config?.classNames?.root)}>
 				<LoadingOverlay visible={loading} />
 				<table className={table()}>
-					<thead className={header()}>
+					<thead className={cn(header(), config?.classNames?.header)}>
 						<tr>
 							{hasSelection && (
-								<th className={cn(headerCell(), 't:w-10')}>
+								<th
+									className={cn(
+										headerCell(),
+										selectionClass(),
+										config?.classNames?.selection,
+										't:w-10',
+									)}
+								>
 									<Checkbox
 										checked={allSelected}
 										onChange={handleSelectAll}
@@ -119,26 +175,38 @@ export function Table<T extends object>({
 							{visibleColumns.map((col) => (
 								<th
 									className={cn(
-										headerCell(),
-										styles({ sorter: col.sorter }).headerCell(),
-										col.align === 'center' && 't:text-center',
-										col.align === 'right' && 't:text-right',
+										styles({
+											align: col.align,
+											sorter: col.sorter,
+										}).headerCell(),
+										config?.classNames?.headerCell,
 									)}
 									key={col.key}
-									style={col.width ? { width: col.width } : undefined}
 									onClick={col.sorter ? () => handleSort(col.key) : undefined}
+									style={
+										col.width
+											? {
+													width: col.width,
+												}
+											: undefined
+									}
 								>
 									{col.label}
-									{col.sorter && <SortIcon columnKey={col.key} sort={sort} />}
+									{col.sorter && (
+										<SortIcon
+											columnKey={col.key}
+											sort={sort}
+										/>
+									)}
 								</th>
 							))}
 						</tr>
 					</thead>
-					<tbody className={body()}>
+					<tbody className={cn(body(), config?.classNames?.body)}>
 						{items.length === 0 ? (
 							<tr>
 								<td
-									className={empty()}
+									className={cn(empty(), config?.classNames?.empty)}
 									colSpan={visibleColumns.length + (hasSelection ? 1 : 0)}
 								>
 									{emptySection ?? 'No data'}
@@ -152,14 +220,22 @@ export function Table<T extends object>({
 								return (
 									<tr
 										className={cn(
-											row(),
-											isSelected && 't:bg-muted/30',
+											styles({
+												selected: isSelected,
+											}).row(),
+											config?.classNames?.row,
 										)}
 										key={key}
 										onClick={() => onRowClick?.(item)}
 									>
 										{hasSelection && (
-											<td className={cn(cell(), 't:w-10')}>
+											<td
+												className={cn(
+													cell(),
+													config?.classNames?.selection,
+													't:w-10',
+												)}
+											>
 												<Checkbox
 													checked={isSelected}
 													onChange={(c) => handleSelectRow(key, c)}
@@ -169,15 +245,18 @@ export function Table<T extends object>({
 										{visibleColumns.map((col) => (
 											<td
 												className={cn(
-													cell(),
-													col.align === 'center' && 't:text-center',
-													col.align === 'right' && 't:text-right',
+													styles({
+														align: col.align,
+													}).cell(),
+													config?.classNames?.cell,
 												)}
 												key={col.key}
 											>
 												{col.selector
 													? col.selector(item, index)
-													: String((item as Record<string, unknown>)[col.key] ?? '')}
+													: String(
+															(item as Record<string, unknown>)[col.key] ?? '',
+														)}
 											</td>
 										))}
 									</tr>

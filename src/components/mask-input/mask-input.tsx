@@ -58,10 +58,7 @@ export const MaskInput = forwardRef<HTMLInputElement, MaskInputProps>(
 			<div className={cn(root(), config?.classNames?.root)}>
 				{hasLeft && (
 					<div
-						className={cn(
-							leftSectionClass(),
-							config?.classNames?.leftSection,
-						)}
+						className={cn(leftSectionClass(), config?.classNames?.leftSection)}
 					>
 						{leftSection}
 					</div>
@@ -73,8 +70,14 @@ export const MaskInput = forwardRef<HTMLInputElement, MaskInputProps>(
 					inputRef={ref}
 					mask={
 						Array.isArray(mask)
-							? mask.map((m) => ({ mask: m }))
-							: [{ mask }]
+							? mask.map((m) => ({
+									mask: m,
+								}))
+							: [
+									{
+										mask,
+									},
+								]
 					}
 					onAccept={handleAccept}
 					placeholder={placeholder}

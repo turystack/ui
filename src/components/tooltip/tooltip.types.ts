@@ -8,3 +8,7 @@ export type TooltipProps = {
 	sideOffset?: number
 	delayDuration?: number
 }
+
+import type { ComponentConfig } from '@/support/types'
+
+export type TooltipConfig = ComponentConfig<TooltipProps, TooltipSlots>

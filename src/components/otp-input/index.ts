@@ -1,2 +1,2 @@
-export { OTPInput } from './otp-input'
-export type { OTPInputProps, OTPInputSlots } from './otp-input.types'
+export * from './otp-input'
+export * from './otp-input.types'

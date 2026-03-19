@@ -13,7 +13,7 @@ const styles = tv({
 		variant: 'default',
 	},
 	slots: {
-		root: 't:inline-flex t:items-center t:rounded-full t:border t:px-2.5 t:py-0.5 t:font-semibold t:text-xs t:transition-colors t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:cursor-pointer',
+		root: 't:inline-flex t:cursor-pointer t:items-center t:rounded-full t:border t:px-2.5 t:py-0.5 t:font-semibold t:text-xs t:transition-colors t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2',
 	},
 	variants: {
 		align: {

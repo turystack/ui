@@ -16,7 +16,7 @@ const styles = tv({
 		progress: 't:h-1.5 t:w-full t:overflow-hidden t:rounded-full t:bg-muted',
 		progressBar: 't:h-full t:bg-primary t:transition-all',
 		remove: '',
-		root: 't:flex t:flex-col t:items-center t:justify-center t:gap-2 t:rounded-md t:border-2 t:border-dashed t:p-6 t:text-center t:transition-colors t:cursor-pointer t:hover:border-primary/50 t:hover:bg-muted/30',
+		root: 't:flex t:cursor-pointer t:flex-col t:items-center t:justify-center t:gap-2 t:rounded-md t:border-2 t:border-dashed t:p-6 t:text-center t:transition-colors t:hover:border-primary/50 t:hover:bg-muted/30',
 	},
 	variants: {
 		disabled: {
@@ -51,14 +51,23 @@ export function Uploader({
 	const [dragging, setDragging] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const { root, icon, fileList, fileItem, fileName, progress, progressBar } = styles({
-		disabled: !!disabled,
-		dragging,
-	})
+	const { root, icon, fileList, fileItem, fileName, progress, progressBar } =
+		styles({
+			disabled: !!disabled,
+			dragging,
+		})
 
 	async function uploadFile(file: File, index: number) {
 		setFiles((prev) =>
-			prev.map((f, i) => (i === index ? { ...f, status: 'uploading', progress: 0 } : f)),
+			prev.map((f, i) =>
+				i === index
+					? {
+							...f,
+							progress: 0,
+							status: 'uploading',
+						}
+					: f,
+			),
 		)
 
 		try {
@@ -70,13 +79,23 @@ export function Uploader({
 					if (e.lengthComputable) {
 						const pct = Math.round((e.loaded / e.total) * 100)
 						setFiles((prev) =>
-							prev.map((f, i) => (i === index ? { ...f, progress: pct } : f)),
+							prev.map((f, i) =>
+								i === index
+									? {
+											...f,
+											progress: pct,
+										}
+									: f,
+							),
 						)
 					}
 				})
 				xhr.addEventListener('load', () => {
-					if (xhr.status >= 200 && xhr.status < 300) resolve()
-					else reject(new Error(`Upload failed: ${xhr.status}`))
+					if (xhr.status >= 200 && xhr.status < 300) {
+						resolve()
+					} else {
+						reject(new Error(`Upload failed: ${xhr.status}`))
+					}
 				})
 				xhr.addEventListener('error', () => reject(new Error('Upload error')))
 				xhr.open('PUT', response.fileNameSigned)
@@ -86,19 +105,44 @@ export function Uploader({
 
 			setFiles((prev) =>
 				prev.map((f, i) =>
-					i === index ? { ...f, status: 'done', progress: 100, response } : f,
+					i === index
+						? {
+								...f,
+								progress: 100,
+								response,
+								status: 'done',
+							}
+						: f,
 				),
 			)
 
 			const doneFiles = files
-				.map((f, i) => (i === index ? { ...f, response } : f))
+				.map((f, i) =>
+					i === index
+						? {
+								...f,
+								response,
+							}
+						: f,
+				)
 				.filter((f) => f.status === 'done')
 				.map((f) => f.response!)
 
-			;(onUpload as (r: UploaderHandlerResponse[], idx: number) => void)?.(doneFiles, index)
+			;(onUpload as (r: UploaderHandlerResponse[], idx: number) => void)?.(
+				doneFiles,
+				index,
+			)
 		} catch {
 			setFiles((prev) =>
-				prev.map((f, i) => (i === index ? { ...f, status: 'error', progress: 0 } : f)),
+				prev.map((f, i) =>
+					i === index
+						? {
+								...f,
+								progress: 0,
+								status: 'error',
+							}
+						: f,
+				),
 			)
 		}
 	}
@@ -108,7 +152,9 @@ export function Uploader({
 			? selected.filter((f) => f.size <= maxFileSize)
 			: selected
 
-		const limited = maxFiles ? filtered.slice(0, maxFiles - files.length) : filtered
+		const limited = maxFiles
+			? filtered.slice(0, maxFiles - files.length)
+			: filtered
 
 		const newStates: FileState[] = limited.map((file) => ({
 			file,
@@ -117,7 +163,10 @@ export function Uploader({
 		}))
 
 		setFiles((prev) => {
-			const next = [...prev, ...newStates]
+			const next = [
+				...prev,
+				...newStates,
+			]
 			newStates.forEach((_, i) => {
 				uploadFile(limited[i], prev.length + i)
 			})
@@ -128,7 +177,9 @@ export function Uploader({
 	function handleDrop(e: React.DragEvent) {
 		e.preventDefault()
 		setDragging(false)
-		if (disabled) return
+		if (disabled) {
+			return
+		}
 		const dropped = Array.from(e.dataTransfer.files)
 		handleFiles(dropped)
 	}
@@ -156,12 +207,13 @@ export function Uploader({
 				onDrop={handleDrop}
 			>
 				<Upload className={icon()} />
-				<p className="t:text-sm t:font-medium">Click or drag files to upload</p>
+				<p className="t:font-medium t:text-sm">Click or drag files to upload</p>
 				{(maxFileSize || accept) && (
-					<p className="t:text-xs t:text-muted-foreground">
+					<p className="t:text-muted-foreground t:text-xs">
 						{accept && `Accepted: ${accept}`}
 						{accept && maxFileSize && ' · '}
-						{maxFileSize && `Max size: ${(maxFileSize / 1024 / 1024).toFixed(1)} MB`}
+						{maxFileSize &&
+							`Max size: ${(maxFileSize / 1024 / 1024).toFixed(1)} MB`}
 					</p>
 				)}
 				<input
@@ -178,25 +230,32 @@ export function Uploader({
 			{files.length > 0 && (
 				<ul className={fileList()}>
 					{files.map((f, i) => (
-						<li className={fileItem()} key={`${f.file.name}-${i}`}>
+						<li
+							className={fileItem()}
+							key={`${f.file.name}-${i}`}
+						>
 							<span className={fileName()}>{f.file.name}</span>
-							<div className="t:flex t:flex-col t:gap-1 t:flex-1">
+							<div className="t:flex t:flex-1 t:flex-col t:gap-1">
 								{f.status === 'uploading' && (
 									<div className={progress()}>
 										<div
 											className={progressBar()}
-											style={{ width: `${f.progress}%` }}
+											style={{
+												width: `${f.progress}%`,
+											}}
 										/>
 									</div>
 								)}
 								{f.status === 'error' && (
-									<span className="t:text-xs t:text-destructive">Error uploading</span>
+									<span className="t:text-destructive t:text-xs">
+										Error uploading
+									</span>
 								)}
 							</div>
 							<Button
+								onClick={() => removeFile(i)}
 								size="icon-sm"
 								variant="ghost"
-								onClick={() => removeFile(i)}
 							>
 								<X className="t:h-3 t:w-3" />
 							</Button>

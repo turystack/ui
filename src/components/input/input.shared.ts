@@ -20,12 +20,12 @@ export const styles = tv({
 	variants: {
 		block: {
 			false: {
-				root: 't:w-fit',
 				input: 't:w-fit',
+				root: 't:w-fit',
 			},
 			true: {
-				root: 't:w-full',
 				input: 't:w-full',
+				root: 't:w-full',
 			},
 		},
 		hasLeft: {

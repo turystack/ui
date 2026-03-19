@@ -1,2 +1,2 @@
+export * from './header'
 export * from './header.types'
-export { LayoutHeader } from './header'

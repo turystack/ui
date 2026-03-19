@@ -7,6 +7,13 @@ export type I18nTranslations = {
 		searchCountry?: string
 		noCountriesFound?: string
 	}
+	currencyInput?: {
+		from?: string
+		to?: string
+		cancel?: string
+		confirm?: string
+		selectRange?: string
+	}
 }
 
 export type I18nProviderProps = {

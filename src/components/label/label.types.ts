@@ -9,7 +9,9 @@ export type LabelProps = {
 }
 
 export type WithLabelProps<T> = T & {
-	label?: string | (LabelProps & {
-		content?: string
-	})
+	label?:
+		| string
+		| (LabelProps & {
+				content?: string
+		  })
 }

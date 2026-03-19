@@ -10,7 +10,9 @@ export const SidebarContext = createContext<SidebarContextValue | null>(null)
 
 function useSidebarContext() {
 	const ctx = useContext(SidebarContext)
-	if (!ctx) throw new Error('useSidebar must be used within Layout')
+	if (!ctx) {
+		throw new Error('useSidebar must be used within Layout')
+	}
 	return ctx
 }
 

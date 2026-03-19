@@ -16,9 +16,15 @@ export type LayoutSidebarProps = {
 	paddingHorizontal?: SidebarPadding
 	paddingVertical?: SidebarPadding
 }
-export type SidebarHeaderProps = { bordered?: boolean; size?: SidebarSize }
+export type SidebarHeaderProps = {
+	bordered?: boolean
+	size?: SidebarSize
+}
 export type SidebarBodyProps = {}
-export type SidebarFooterProps = { bordered?: boolean; size?: SidebarSize }
+export type SidebarFooterProps = {
+	bordered?: boolean
+	size?: SidebarSize
+}
 
 export type SidebarConfig = {
 	default?: ComponentConfig<LayoutSidebarProps, SidebarSlots>

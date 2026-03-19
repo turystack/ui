@@ -1,5 +1,5 @@
-import type { ComponentConfig } from '@/support/types'
 import type { MaskInputProps } from '@/components/mask-input/mask-input.types'
+import type { ComponentConfig } from '@/support/types'
 
 export type DocumentInputSlots = 'root' | 'input' | 'typeSelector' | 'loader'
 
@@ -10,7 +10,10 @@ export type DocumentValue = {
 	number: string
 }
 
-export type DocumentInputProps = Omit<MaskInputProps, 'mask' | 'value' | 'defaultValue' | 'onChange'> & {
+export type DocumentInputProps = Omit<
+	MaskInputProps,
+	'mask' | 'value' | 'defaultValue' | 'onChange'
+> & {
 	variant: DocumentType
 	value?: DocumentValue | null
 	defaultValue?: DocumentValue | null

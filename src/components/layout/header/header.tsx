@@ -2,16 +2,24 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import { tv } from 'tailwind-variants'
 
+import type { LayoutHeaderProps } from './header.types'
+
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
-
-import type { LayoutHeaderProps } from './header.types'
 
 function flattenChildren(children: ReactNode): ReactNode[] {
 	const result: ReactNode[] = []
 	React.Children.forEach(children, (child) => {
 		if (React.isValidElement(child) && child.type === React.Fragment) {
-			result.push(...flattenChildren((child.props as { children?: ReactNode }).children))
+			result.push(
+				...flattenChildren(
+					(
+						child.props as {
+							children?: ReactNode
+						}
+					).children,
+				),
+			)
 		} else {
 			result.push(child)
 		}
@@ -20,22 +28,38 @@ function flattenChildren(children: ReactNode): ReactNode[] {
 }
 
 const headerStyles = tv({
+	defaultVariants: {
+		size: 'md',
+	},
 	slots: {
+		center: 't:flex t:shrink-0 t:justify-center t:px-4',
+		left: 't:flex t:min-w-0 t:flex-1 t:justify-start',
+		right: 't:flex t:min-w-0 t:flex-1 t:justify-end',
 		root: 't:flex t:shrink-0 t:items-center t:px-4',
-		left: 't:min-w-0 t:flex-1 t:flex t:justify-start',
-		center: 't:shrink-0 t:flex t:justify-center t:px-4',
-		right: 't:min-w-0 t:flex-1 t:flex t:justify-end',
 	},
 	variants: {
-		bordered: { true: { root: 't:border-b t:border-border' } },
-		sticky: { true: { root: 't:sticky t:top-0 t:z-10 t:bg-background' } },
+		bordered: {
+			true: {
+				root: 't:border-border t:border-b',
+			},
+		},
 		size: {
-			sm: { root: 't:h-10' },
-			md: { root: 't:h-14' },
-			lg: { root: 't:h-16' },
+			lg: {
+				root: 't:h-16',
+			},
+			md: {
+				root: 't:h-14',
+			},
+			sm: {
+				root: 't:h-10',
+			},
+		},
+		sticky: {
+			true: {
+				root: 't:sticky t:top-0 t:z-10 t:bg-background',
+			},
 		},
 	},
-	defaultVariants: { size: 'md' },
 })
 
 export function HeaderLeft({ children }: PropsWithChildren) {
@@ -61,7 +85,11 @@ function HeaderRoot({
 }: PropsWithChildren<LayoutHeaderProps>) {
 	const state = useInternalState()
 	const config = state?.components?.layout?.header
-	const { root, left, center, right } = headerStyles({ bordered, sticky, size })
+	const { root, left, center, right } = headerStyles({
+		bordered,
+		size,
+		sticky,
+	})
 
 	let leftSlot: React.ReactNode = null
 	let centerSlot: React.ReactNode = null
@@ -73,23 +101,39 @@ function HeaderRoot({
 			rest.push(child)
 			return
 		}
-		const displayName = (child.type as { displayName?: string }).displayName
-		const props = child.props as { children?: React.ReactNode }
-		if (displayName === 'Header.Left') leftSlot = props.children
-		else if (displayName === 'Header.Center') centerSlot = props.children
-		else if (displayName === 'Header.Right') rightSlot = props.children
-		else rest.push(child)
+		const displayName = (
+			child.type as {
+				displayName?: string
+			}
+		).displayName
+		const props = child.props as {
+			children?: React.ReactNode
+		}
+		if (displayName === 'Header.Left') {
+			leftSlot = props.children
+		} else if (displayName === 'Header.Center') {
+			centerSlot = props.children
+		} else if (displayName === 'Header.Right') {
+			rightSlot = props.children
+		} else {
+			rest.push(child)
+		}
 	})
 
-	const hasSlots = leftSlot !== null || centerSlot !== null || rightSlot !== null
+	const hasSlots =
+		leftSlot !== null || centerSlot !== null || rightSlot !== null
 
 	return (
 		<header className={cn(root(), config?.classNames?.root)}>
 			{hasSlots ? (
 				<>
 					<div className={cn(left(), config?.classNames?.left)}>{leftSlot}</div>
-					<div className={cn(center(), config?.classNames?.center)}>{centerSlot}</div>
-					<div className={cn(right(), config?.classNames?.right)}>{rightSlot}</div>
+					<div className={cn(center(), config?.classNames?.center)}>
+						{centerSlot}
+					</div>
+					<div className={cn(right(), config?.classNames?.right)}>
+						{rightSlot}
+					</div>
 				</>
 			) : (
 				rest
@@ -99,7 +143,7 @@ function HeaderRoot({
 }
 
 export const LayoutHeader = Object.assign(HeaderRoot, {
-	Left: HeaderLeft,
 	Center: HeaderCenter,
+	Left: HeaderLeft,
 	Right: HeaderRight,
 })

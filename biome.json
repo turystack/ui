@@ -29,7 +29,9 @@
 			"enabled": false
 		}
 	},
-	"files": {},
+	"files": {
+		"includes": ["**", "!src/index.css"]
+	},
 	"formatter": {
 		"attributePosition": "auto",
 		"enabled": true,

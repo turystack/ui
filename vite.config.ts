@@ -1,10 +1,11 @@
 import path from 'node:path'
-import pkg from './package.json'
 
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+
+import pkg from './package.json'
 
 export default defineConfig({
 	build: {
@@ -16,11 +17,11 @@ export default defineConfig({
 			],
 		},
 		rollupOptions: {
-      external: [
-        ...Object.keys(pkg.dependencies || {}),
-        ...Object.keys(pkg.peerDependencies || {}),
-      ],
-    },
+			external: [
+				...Object.keys(pkg.dependencies || {}),
+				...Object.keys(pkg.peerDependencies || {}),
+			],
+		},
 	},
 	plugins: [
 		tailwindcss(),
@@ -34,6 +35,9 @@ export default defineConfig({
 		}),
 	],
 	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './src'),
+		},
 		dedupe: [
 			'react',
 			'react-dom',
@@ -41,8 +45,5 @@ export default defineConfig({
 			'@radix-ui/react-slot',
 			'lucide-react',
 		],
-		alias: {
-			'@': path.resolve(__dirname, './src'),
-		},
 	},
 })

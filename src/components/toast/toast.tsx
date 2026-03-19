@@ -1,4 +1,10 @@
-import { CircleCheck, Info, LoaderCircle, OctagonX, TriangleAlert } from 'lucide-react'
+import {
+	CircleCheck,
+	Info,
+	LoaderCircle,
+	OctagonX,
+	TriangleAlert,
+} from 'lucide-react'
 import { Toaster as Sonner, toast as sonnerToast } from 'sonner'
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
@@ -22,7 +28,8 @@ export function ToastContainer({ theme, ...props }: ToasterProps) {
 					cancelButton:
 						't:group-[.toast]:bg-muted t:group-[.toast]:text-muted-foreground',
 					description: 't:group-[.toast]:text-muted-foreground',
-					toast: 't:group t:toast t:group-[.toaster]:bg-background t:group-[.toaster]:text-foreground t:group-[.toaster]:border-border t:group-[.toaster]:shadow-lg',
+					toast:
+						't:group t:toast t:group-[.toaster]:bg-background t:group-[.toaster]:text-foreground t:group-[.toaster]:border-border t:group-[.toaster]:shadow-lg',
 				},
 			}}
 			{...props}

@@ -2,7 +2,19 @@ export type ThemeStyle = 'vega' | 'nova' | 'maia' | 'lyra' | 'mira'
 
 export type ThemeBaseColor = 'neutral' | 'stone' | 'zinc' | 'gray'
 
-export type ThemePrimaryColor = 'cyan' | 'green' | 'orange' | 'pink' | 'yellow' | 'purple' | 'red' | 'blue' | 'indigo' | 'violet' | 'fuchsia' | 'pink' | 'rose'
+export type ThemePrimaryColor =
+	| 'cyan'
+	| 'green'
+	| 'orange'
+	| 'pink'
+	| 'yellow'
+	| 'purple'
+	| 'red'
+	| 'blue'
+	| 'indigo'
+	| 'violet'
+	| 'fuchsia'
+	| 'rose'
 
 export type ThemeFont = 'sans' | 'serif' | 'mono'
 

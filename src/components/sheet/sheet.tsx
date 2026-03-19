@@ -24,10 +24,10 @@ const styles = tv({
 	slots: {
 		body: 't:flex-1 t:overflow-y-auto t:p-6',
 		close:
-			't:absolute t:top-4 t:right-4 t:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:cursor-pointer t:disabled:pointer-events-none t:data-[state=open]:bg-secondary',
+			't:absolute t:top-4 t:right-4 t:cursor-pointer t:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:disabled:pointer-events-none t:data-[state=open]:bg-secondary',
 		closeIcon: 't:h-4 t:w-4',
 		closeInline:
-			't:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:cursor-pointer t:disabled:pointer-events-none t:data-[state=open]:bg-secondary',
+			't:cursor-pointer t:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:disabled:pointer-events-none t:data-[state=open]:bg-secondary',
 		content:
 			't:fixed t:z-50 t:flex t:flex-col t:overflow-hidden t:bg-background t:shadow-lg t:transition t:ease-in-out t:data-[state=closed]:animate-out t:data-[state=open]:animate-in t:data-[state=closed]:duration-300 t:data-[state=open]:duration-500',
 		description: 't:text-muted-foreground t:text-sm',

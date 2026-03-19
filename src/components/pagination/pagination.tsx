@@ -4,30 +4,47 @@ import { tv } from 'tailwind-variants'
 import type { PaginationProps } from './pagination.types'
 
 import { Button } from '@/components/button'
+import { useInternalState } from '@/components/provider/provider.context'
+import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
+		actions: 't:flex t:items-center t:gap-1',
 		root: 't:flex t:items-center t:justify-between t:gap-4',
-		rowsPerPage: 't:flex t:items-center t:gap-2 t:text-sm t:text-muted-foreground',
+		rowsPerPage:
+			't:flex t:items-center t:gap-2 t:text-muted-foreground t:text-sm',
 		rowsSelect:
-			't:h-8 t:rounded-md t:border t:border-input t:bg-background t:pl-2 t:pr-6 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:cursor-pointer',
+			't:h-8 t:cursor-pointer t:rounded-md t:border t:border-input t:bg-background t:pr-6 t:pl-2 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring',
 	},
 })
 
-const PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
+const PAGE_SIZE_OPTIONS = [
+	10,
+	20,
+	50,
+	100,
+]
 
 export function Pagination(props: PaginationProps) {
-	const { root, rowsPerPage, rowsSelect } = styles()
+	const state = useInternalState()
+	const config = state?.components?.pagination
+	const { root, rowsPerPage, rowsSelect, actions } = styles()
 
 	if (props.mode === 'offset') {
-		const { page, rowsPerPage: rpp, total, onPageChange, onRowsPerPageChange } = props
+		const {
+			page,
+			rowsPerPage: rpp,
+			total,
+			onPageChange,
+			onRowsPerPageChange,
+		} = props
 		const totalPages = Math.ceil(total / rpp)
 		const hasPrev = page > 1
 		const hasNext = page < totalPages
 
 		return (
-			<div className={root()}>
-				<div className={rowsPerPage()}>
+			<div className={cn(root(), config?.classNames?.root)}>
+				<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
 					<span>Rows per page:</span>
 					<select
 						className={rowsSelect()}
@@ -35,7 +52,10 @@ export function Pagination(props: PaginationProps) {
 						value={rpp}
 					>
 						{PAGE_SIZE_OPTIONS.map((opt) => (
-							<option key={opt} value={opt}>
+							<option
+								key={opt}
+								value={opt}
+							>
 								{opt}
 							</option>
 						))}
@@ -44,20 +64,20 @@ export function Pagination(props: PaginationProps) {
 						{(page - 1) * rpp + 1}–{Math.min(page * rpp, total)} of {total}
 					</span>
 				</div>
-				<div className="t:flex t:items-center t:gap-1">
+				<div className={actions()}>
 					<Button
 						disabled={!hasPrev}
+						onClick={() => onPageChange(page - 1)}
 						size="icon-sm"
 						variant="ghost"
-						onClick={() => onPageChange(page - 1)}
 					>
 						<ChevronLeft />
 					</Button>
 					<Button
 						disabled={!hasNext}
+						onClick={() => onPageChange(page + 1)}
 						size="icon-sm"
 						variant="ghost"
-						onClick={() => onPageChange(page + 1)}
 					>
 						<ChevronRight />
 					</Button>
@@ -76,8 +96,8 @@ export function Pagination(props: PaginationProps) {
 	} = props
 
 	return (
-		<div className={root()}>
-			<div className={rowsPerPage()}>
+		<div className={cn(root(), config?.classNames?.root)}>
+			<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
 				<span>Rows per page:</span>
 				<select
 					className={rowsSelect()}
@@ -85,26 +105,29 @@ export function Pagination(props: PaginationProps) {
 					value={rpp}
 				>
 					{PAGE_SIZE_OPTIONS.map((opt) => (
-						<option key={opt} value={opt}>
+						<option
+							key={opt}
+							value={opt}
+						>
 							{opt}
 						</option>
 					))}
 				</select>
 			</div>
-			<div className="t:flex t:items-center t:gap-1">
+			<div className={actions()}>
 				<Button
 					disabled={!hasPreviousPage}
+					onClick={onPreviousPage}
 					size="icon-sm"
 					variant="ghost"
-					onClick={onPreviousPage}
 				>
 					<ChevronLeft />
 				</Button>
 				<Button
 					disabled={!hasNextPage}
+					onClick={onNextPage}
 					size="icon-sm"
 					variant="ghost"
-					onClick={onNextPage}
 				>
 					<ChevronRight />
 				</Button>

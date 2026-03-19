@@ -1,5 +1,5 @@
-import type { ComponentConfig } from '@/support/types'
 import type { InputProps } from '@/components/input/input.types'
+import type { ComponentConfig } from '@/support/types'
 
 export type DateRangeInputSlots = 'root' | 'content' | 'calendar'
 
@@ -8,10 +8,16 @@ export type DateRange = {
 	to?: Date
 }
 
-export type DateRangeInputProps = Omit<InputProps, 'value' | 'defaultValue' | 'onChange'> & {
+export type DateRangeInputProps = Omit<
+	InputProps,
+	'value' | 'defaultValue' | 'onChange'
+> & {
 	value?: DateRange | null
 	defaultValue?: DateRange | null
 	onChange?: (range: DateRange | null) => void
 }
 
-export type DateRangeInputConfig = ComponentConfig<DateRangeInputProps, DateRangeInputSlots>
+export type DateRangeInputConfig = ComponentConfig<
+	DateRangeInputProps,
+	DateRangeInputSlots
+>

@@ -21,7 +21,7 @@ const styles = tv({
 		ellipsis: 't:flex t:h-9 t:w-9 t:items-center t:justify-center',
 		ellipsisIcon: 't:h-4 t:w-4',
 		item: 't:inline-flex t:items-center t:gap-1.5',
-		link: 't:transition-colors t:hover:text-foreground t:cursor-pointer',
+		link: 't:cursor-pointer t:transition-colors t:hover:text-foreground',
 		list: 't:flex t:flex-wrap t:items-center t:gap-1.5 t:break-words t:text-muted-foreground t:text-sm t:sm:gap-2.5',
 		page: 't:font-normal t:text-foreground',
 		root: '',

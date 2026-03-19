@@ -55,5 +55,16 @@ export function Typography({
 }: PropsWithChildren<TypographyProps>) {
 	const Comp = (component ?? 'span') as ElementType
 
-	return <Comp className={styles({ size, variant, weight, truncate })}>{children}</Comp>
+	return (
+		<Comp
+			className={styles({
+				size,
+				truncate,
+				variant,
+				weight,
+			})}
+		>
+			{children}
+		</Comp>
+	)
 }

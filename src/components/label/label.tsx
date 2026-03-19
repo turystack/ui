@@ -11,13 +11,14 @@ const styles = tv({
 	slots: {
 		optional: 't:ml-1 t:text-muted-foreground t:text-xs',
 		required: 't:ml-0.5 t:text-destructive',
-		root: 't:text-sm t:font-medium t:leading-none t:peer-disabled:cursor-not-allowed t:peer-disabled:opacity-70',
-		tooltipIcon: 't:ml-1 t:h-3.5 t:w-3.5 t:text-muted-foreground t:inline-block t:cursor-help t:shrink-0',
+		root: 't:font-medium t:text-sm t:leading-none t:peer-disabled:cursor-not-allowed t:peer-disabled:opacity-70',
+		tooltipIcon:
+			't:ml-1 t:inline-block t:h-3.5 t:w-3.5 t:shrink-0 t:cursor-help t:text-muted-foreground',
 	},
 	variants: {
 		disabled: {
 			true: {
-				root: 't:opacity-70 t:cursor-not-allowed',
+				root: 't:cursor-not-allowed t:opacity-70',
 			},
 		},
 	},
@@ -36,13 +37,21 @@ export function Label({
 		required: requiredClass,
 		optional: optionalClass,
 		tooltipIcon,
-	} = styles({ disabled: !!disabled })
+	} = styles({
+		disabled: !!disabled,
+	})
 
 	return (
-		<LabelPrimitive.Root className={root()} htmlFor={htmlFor}>
+		<LabelPrimitive.Root
+			className={root()}
+			htmlFor={htmlFor}
+		>
 			{children}
+
 			{required && <span className={requiredClass()}> *</span>}
+
 			{optional && <span className={optionalClass()}> (optional)</span>}
+
 			{tooltip && (
 				<Tooltip content={tooltip}>
 					<Info className={tooltipIcon()} />

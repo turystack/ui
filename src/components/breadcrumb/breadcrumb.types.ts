@@ -37,6 +37,9 @@ export type BreadcrumbConfig = {
 	item?: ComponentConfig<BreadcrumbItemProps, BreadcrumbItemSlots>
 	link?: ComponentConfig<BreadcrumbLinkProps, BreadcrumbLinkSlots>
 	page?: ComponentConfig<BreadcrumbPageProps, BreadcrumbPageSlots>
-	separator?: ComponentConfig<BreadcrumbSeparatorProps, BreadcrumbSeparatorSlots>
+	separator?: ComponentConfig<
+		BreadcrumbSeparatorProps,
+		BreadcrumbSeparatorSlots
+	>
 	ellipsis?: ComponentConfig<BreadcrumbEllipsisProps, BreadcrumbEllipsisSlots>
 }

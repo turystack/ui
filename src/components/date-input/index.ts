@@ -1,2 +1,2 @@
-export { DateInput } from './date-input'
-export type { DateInputProps, DateInputSlots } from './date-input.types'
+export * from './date-input'
+export * from './date-input.types'

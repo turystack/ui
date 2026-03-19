@@ -1,6 +1,12 @@
 import type { ComponentConfig } from '@/support/types'
 
-export type CheckboxSlots = 'wrapper' | 'root' | 'indicator' | 'icon' | 'label' | 'description'
+export type CheckboxSlots =
+	| 'wrapper'
+	| 'root'
+	| 'indicator'
+	| 'icon'
+	| 'label'
+	| 'description'
 
 export type CheckboxSize = 'sm' | 'md' | 'lg'
 

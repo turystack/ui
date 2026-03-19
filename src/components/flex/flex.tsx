@@ -63,6 +63,17 @@ export function Flex({
 	children,
 }: PropsWithChildren<FlexProps>) {
 	return (
-		<div className={styles({ direction, justify, align, gap, wrap, inline })}>{children}</div>
+		<div
+			className={styles({
+				align,
+				direction,
+				gap,
+				inline,
+				justify,
+				wrap,
+			})}
+		>
+			{children}
+		</div>
 	)
 }

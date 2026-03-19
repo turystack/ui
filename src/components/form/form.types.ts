@@ -8,7 +8,9 @@ export type FormFieldSlots = 'root'
 
 export type FormFieldLabelInput =
 	| string
-	| (import('@/components/label').LabelProps & { content: string })
+	| (import('@/components/label').LabelProps & {
+			content: string
+	  })
 
 export type FormFieldProps = {
 	label?: FormFieldLabelInput
@@ -34,4 +36,12 @@ export type FormFieldSetTooltip = string | TooltipProps
 export type FormFieldSetProps = {
 	legend?: string
 	tooltip?: FormFieldSetTooltip
+}
+
+import type { ComponentConfig } from '@/support/types'
+
+export type FormConfig = {
+	default?: ComponentConfig<FormProps, FormSlots>
+	field?: ComponentConfig<FormFieldProps, FormFieldSlots>
+	fieldSet?: ComponentConfig<FormFieldSetProps, FormFieldSetSlots>
 }

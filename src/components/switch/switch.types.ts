@@ -1,4 +1,4 @@
-import type { WithLabelProps } from "@/components/label"
+import type { WithLabelProps } from '@/components/label'
 
 export type SwitchSlots = 'root' | 'thumb' | 'label'
 

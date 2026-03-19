@@ -1,9 +1,12 @@
+import type { InputProps } from '@/components/input/input.types'
 import type { ComponentConfig } from '@/support/types'
-import type { InputProps } from "@/components/input/input.types"
 
 export type TagsInputSlots = 'root' | 'input' | 'tag' | 'tagRemove'
 
-export type TagsInputProps = Omit<InputProps, 'value' | 'defaultValue' | 'onChange'> & {
+export type TagsInputProps = Omit<
+	InputProps,
+	'value' | 'defaultValue' | 'onChange'
+> & {
 	value?: string[]
 	defaultValue?: string[]
 	maxTags?: number

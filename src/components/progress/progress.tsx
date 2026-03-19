@@ -11,7 +11,7 @@ const styles = tv({
 	},
 	slots: {
 		indicator: 't:h-full t:w-full t:flex-1 t:bg-primary t:transition-all',
-		label: 't:flex t:items-center t:justify-between t:mb-1.5',
+		label: 't:mb-1.5 t:flex t:items-center t:justify-between',
 		root: 't:relative t:w-full t:overflow-hidden t:rounded-full t:bg-secondary',
 	},
 	variants: {
@@ -30,7 +30,13 @@ const styles = tv({
 })
 
 export function Progress({ label, value, defaultValue, size }: ProgressProps) {
-	const { root, indicator, label: labelClass } = styles({ size })
+	const {
+		root,
+		indicator,
+		label: labelClass,
+	} = styles({
+		size,
+	})
 
 	const resolvedValue = value ?? defaultValue ?? 0
 	const resolvedLabel = typeof label === 'string' ? label : label?.content
@@ -40,13 +46,20 @@ export function Progress({ label, value, defaultValue, size }: ProgressProps) {
 			{resolvedLabel && (
 				<div className={labelClass()}>
 					<Label>{resolvedLabel}</Label>
-					<span className="t:text-sm t:text-muted-foreground">{resolvedValue}%</span>
+					<span className="t:text-muted-foreground t:text-sm">
+						{resolvedValue}%
+					</span>
 				</div>
 			)}
-			<ProgressPrimitive.Root className={root()} value={resolvedValue}>
+			<ProgressPrimitive.Root
+				className={root()}
+				value={resolvedValue}
+			>
 				<ProgressPrimitive.Indicator
 					className={indicator()}
-					style={{ transform: `translateX(-${100 - resolvedValue}%)` }}
+					style={{
+						transform: `translateX(-${100 - resolvedValue}%)`,
+					}}
 				/>
 			</ProgressPrimitive.Root>
 		</div>

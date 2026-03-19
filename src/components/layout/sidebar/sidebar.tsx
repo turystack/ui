@@ -3,10 +3,6 @@ import type { PropsWithChildren } from 'react'
 import React from 'react'
 import { tv } from 'tailwind-variants'
 
-import { useInternalState } from '@/components/provider/provider.context'
-import { cn } from '@/support/utils'
-
-import { useSidebar } from '../context'
 import type {
 	LayoutSidebarProps,
 	SidebarBodyProps,
@@ -14,52 +10,103 @@ import type {
 	SidebarHeaderProps,
 } from './sidebar.types'
 
+import { useInternalState } from '@/components/provider/provider.context'
+import { cn } from '@/support/utils'
+import { useSidebar } from '../context'
+
 const sidebarStyles = tv({
-	slots: { root: 't:flex t:shrink-0 t:flex-col t:overflow-hidden t:bg-background t:transition-all t:duration-200' },
+	slots: {
+		root: 't:flex t:shrink-0 t:flex-col t:overflow-hidden t:bg-background t:transition-all t:duration-200',
+	},
 	variants: {
-		bordered: { true: { root: 't:border-r t:border-border' } },
+		bordered: {
+			true: {
+				root: 't:border-border t:border-r',
+			},
+		},
 	},
 })
 
 const sidebarHeaderStyles = tv({
-	slots: { root: 't:flex t:shrink-0 t:items-center t:justify-between t:px-4' },
+	defaultVariants: {
+		size: 'md',
+	},
+	slots: {
+		root: 't:flex t:shrink-0 t:items-center t:justify-between t:px-4',
+	},
 	variants: {
-		bordered: { true: { root: 't:border-b t:border-border' } },
+		bordered: {
+			true: {
+				root: 't:border-border t:border-b',
+			},
+		},
 		size: {
-			sm: { root: 't:h-10' },
-			md: { root: 't:h-14' },
-			lg: { root: 't:h-16' },
+			lg: {
+				root: 't:h-16',
+			},
+			md: {
+				root: 't:h-14',
+			},
+			sm: {
+				root: 't:h-10',
+			},
 		},
 	},
-	defaultVariants: { size: 'md' },
 })
 
 const sidebarBodyStyles = tv({
-	slots: { root: 't:flex t:flex-1 t:flex-col t:overflow-y-auto' },
+	slots: {
+		root: 't:flex t:flex-1 t:flex-col t:overflow-y-auto',
+	},
 })
 
 const sidebarFooterStyles = tv({
-	slots: { root: 't:flex t:shrink-0 t:items-center t:px-4' },
+	defaultVariants: {
+		size: 'md',
+	},
+	slots: {
+		root: 't:flex t:shrink-0 t:items-center t:px-4',
+	},
 	variants: {
-		bordered: { true: { root: 't:border-t t:border-border' } },
+		bordered: {
+			true: {
+				root: 't:border-border t:border-t',
+			},
+		},
 		size: {
-			sm: { root: 't:h-10' },
-			md: { root: 't:h-14' },
-			lg: { root: 't:h-16' },
+			lg: {
+				root: 't:h-16',
+			},
+			md: {
+				root: 't:h-14',
+			},
+			sm: {
+				root: 't:h-10',
+			},
 		},
 	},
-	defaultVariants: { size: 'md' },
 })
 
 const sidebarTriggerStyles = tv({
 	slots: {
-		root: 't:flex t:items-center t:justify-center t:rounded-md t:p-1.5 t:text-muted-foreground t:hover:bg-accent t:hover:text-accent-foreground t:transition-colors',
+		root: 't:flex t:items-center t:justify-center t:rounded-md t:p-1.5 t:text-muted-foreground t:transition-colors t:hover:bg-accent t:hover:text-accent-foreground',
 	},
 })
 
-const widthMap = { default: 't:w-60', wide: 't:w-80' } as const
-const pxMap = { sm: 't:px-2', md: 't:px-4', lg: 't:px-6' } as const
-const pyMap = { sm: 't:py-2', md: 't:py-4', lg: 't:py-6' } as const
+const widthMap = {
+	default: 't:w-60',
+	wide: 't:w-80',
+} as const
+const pxMap = {
+	lg: 't:px-6',
+	md: 't:px-4',
+	sm: 't:px-2',
+} as const
+const pyMap = {
+	lg: 't:py-6',
+	md: 't:py-4',
+	sm: 't:py-2',
+} as const
 
 function SidebarRoot({
 	children,
@@ -71,7 +118,9 @@ function SidebarRoot({
 	const { collapsed } = useSidebar()
 	const state = useInternalState()
 	const config = state?.components?.layout?.sidebar?.default
-	const { root } = sidebarStyles({ bordered })
+	const { root } = sidebarStyles({
+		bordered,
+	})
 	return (
 		<aside
 			className={cn(
@@ -95,13 +144,20 @@ export function SidebarHeader({
 	const { collapsed } = useSidebar()
 	const state = useInternalState()
 	const config = state?.components?.layout?.sidebar?.header
-	const { root } = sidebarHeaderStyles({ bordered, size })
+	const { root } = sidebarHeaderStyles({
+		bordered,
+		size,
+	})
 
 	if (collapsed) {
 		const trigger = React.Children.toArray(children).find(
 			(child) =>
 				React.isValidElement(child) &&
-				(child.type as { displayName?: string }).displayName === 'Sidebar.Trigger',
+				(
+					child.type as {
+						displayName?: string
+					}
+				).displayName === 'Sidebar.Trigger',
 		)
 		return (
 			<div className={cn(root(), 't:justify-center', config?.classNames?.root)}>
@@ -127,7 +183,10 @@ export function SidebarFooter({
 }: PropsWithChildren<SidebarFooterProps>) {
 	const state = useInternalState()
 	const config = state?.components?.layout?.sidebar?.footer
-	const { root } = sidebarFooterStyles({ bordered, size })
+	const { root } = sidebarFooterStyles({
+		bordered,
+		size,
+	})
 	return <div className={cn(root(), config?.classNames?.root)}>{children}</div>
 }
 
@@ -136,7 +195,12 @@ export function SidebarTrigger() {
 	const { root } = sidebarTriggerStyles()
 	const Icon = collapsed ? PanelLeftOpen : PanelLeftClose
 	return (
-		<button type="button" className={root()} onClick={toggle} aria-label="Toggle sidebar">
+		<button
+			aria-label="Toggle sidebar"
+			className={root()}
+			onClick={toggle}
+			type="button"
+		>
 			<Icon className="t:h-4 t:w-4" />
 		</button>
 	)
@@ -148,8 +212,8 @@ SidebarFooter.displayName = 'Sidebar.Footer'
 SidebarTrigger.displayName = 'Sidebar.Trigger'
 
 export const LayoutSidebar = Object.assign(SidebarRoot, {
-	Header: SidebarHeader,
 	Body: SidebarBody,
 	Footer: SidebarFooter,
+	Header: SidebarHeader,
 	Trigger: SidebarTrigger,
 })

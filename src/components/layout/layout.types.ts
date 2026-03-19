@@ -1,25 +1,20 @@
+import type {
+	LayoutContentProps,
+	LayoutContentSlots,
+} from './content/content.types'
+import type {
+	LayoutFooterProps,
+	LayoutFooterSlots,
+} from './footer/footer.types'
+import type { LayoutMainProps, LayoutMainSlots } from './main/main.types'
+
 import type { ComponentConfig } from '@/support/types'
 
 // Slots
 export type LayoutSlots = 'root'
-export type LayoutMainSlots = 'root'
-export type LayoutContentSlots = 'root' | 'inner'
-export type LayoutFooterSlots = 'root'
 
 // Props
 export type LayoutProps = {}
-export type LayoutMainProps = {}
-export type LayoutContentProps = {
-	padding?: 'sm' | 'md' | 'lg'
-	paddingHorizontal?: 'sm' | 'md' | 'lg'
-	paddingVertical?: 'sm' | 'md' | 'lg'
-	maxWidth?: 'sm' | 'md' | 'lg'
-}
-export type LayoutFooterProps = {
-	bordered?: boolean
-	sticky?: boolean
-	size?: 'sm' | 'md' | 'lg'
-}
 
 // Config
 export type LayoutConfig = {

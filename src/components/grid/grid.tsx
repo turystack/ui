@@ -57,11 +57,30 @@ const itemStyles = tv({
 })
 
 function Root({ cols, gap, children }: PropsWithChildren<GridProps>) {
-	return <div className={styles({ cols, gap })}>{children}</div>
+	return (
+		<div
+			className={styles({
+				cols,
+				gap,
+			})}
+		>
+			{children}
+		</div>
+	)
 }
 
 function Item({ span, children }: PropsWithChildren<GridItemProps>) {
-	return <div className={itemStyles({ span })}>{children}</div>
+	return (
+		<div
+			className={itemStyles({
+				span,
+			})}
+		>
+			{children}
+		</div>
+	)
 }
 
-export const Grid = Object.assign(Root, { Item })
+export const Grid = Object.assign(Root, {
+	Item,
+})

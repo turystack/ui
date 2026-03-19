@@ -11,8 +11,8 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
-		root: 't:space-y-2',
 		input: '',
+		root: 't:space-y-2',
 		tag: 't:flex t:items-center t:gap-1',
 		tagRemove: 't:flex t:items-center',
 	},
@@ -45,7 +45,9 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 		const [inputValue, setInputValue] = useState('')
 
 		const addTag = (val: string) => {
-			if (!val.trim()) return
+			if (!val.trim()) {
+				return
+			}
 
 			if (!resolvedAllowDuplicates && tags.includes(val)) {
 				return
@@ -55,7 +57,10 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 				return
 			}
 
-			const newTags = [...tags, val]
+			const newTags = [
+				...tags,
+				val,
+			]
 			setTags(newTags)
 			onChange?.(newTags)
 			setInputValue('')
@@ -73,7 +78,9 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 
 		useEffect(() => {
 			const el = inputRef.current
-			if (!el) return
+			if (!el) {
+				return
+			}
 
 			const handleKeyDown = (event: KeyboardEvent) => {
 				if (event.key === 'Enter' && !event.shiftKey) {
@@ -84,13 +91,18 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 
 			el.addEventListener('keydown', handleKeyDown)
 			return () => el.removeEventListener('keydown', handleKeyDown)
-		}, [inputValue, tags])
+		}, [
+			inputValue,
+			tags,
+		])
 
 		useEffect(() => {
 			if (value !== undefined) {
 				setTags(value)
 			}
-		}, [value])
+		}, [
+			value,
+		])
 
 		const { root, tag, tagRemove } = styles()
 
@@ -107,10 +119,7 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 									<span>{tagValue}</span>
 
 									<button
-										className={cn(
-											tagRemove(),
-											config?.classNames?.tagRemove,
-										)}
+										className={cn(tagRemove(), config?.classNames?.tagRemove)}
 										onClick={() => removeTag(index)}
 										type="button"
 									>
@@ -129,9 +138,16 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 					onChange={handleChange}
 					placeholder={placeholder}
 					ref={(node) => {
-						(inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node
-						if (typeof ref === 'function') ref(node)
-						else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node
+						;(
+							inputRef as React.MutableRefObject<HTMLInputElement | null>
+						).current = node
+						if (typeof ref === 'function') {
+							ref(node)
+						} else if (ref) {
+							;(
+								ref as React.MutableRefObject<HTMLInputElement | null>
+							).current = node
+						}
 					}}
 					size={size}
 					type="text"

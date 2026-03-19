@@ -16,8 +16,13 @@ export interface SidebarNavItem {
 }
 
 export type SidebarNavEntry =
-	| { type: 'item'; item: SidebarNavItem }
-	| { type: 'divider' }
+	| {
+			type: 'item'
+			item: SidebarNavItem
+	  }
+	| {
+			type: 'divider'
+	  }
 
 export type NavProps = {
 	items: SidebarNavEntry[]

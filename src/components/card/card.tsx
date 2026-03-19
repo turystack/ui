@@ -31,6 +31,11 @@ const styles = tv({
 				header: 't:border-b',
 			},
 		},
+		clickable: {
+			true: {
+				root: 't:cursor-pointer',
+			},
+		},
 	},
 })
 
@@ -38,11 +43,13 @@ function Root({ onClick, children }: PropsWithChildren<CardProps>) {
 	const state = useInternalState()
 	const config = state?.components?.card?.default
 
-	const { root } = styles()
+	const { root } = styles({
+		clickable: !!onClick,
+	})
 
 	return (
 		<div
-			className={cn(root(), config?.classNames?.root, onClick && 't:cursor-pointer')}
+			className={cn(root(), config?.classNames?.root)}
 			onClick={onClick}
 		>
 			{children}

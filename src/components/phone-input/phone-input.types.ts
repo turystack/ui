@@ -1,5 +1,5 @@
-import type { ComponentConfig } from '@/support/types'
 import type { MaskInputProps } from '@/components/mask-input/mask-input.types'
+import type { ComponentConfig } from '@/support/types'
 
 export type PhoneInputSlots =
 	| 'root'
