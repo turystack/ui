@@ -79,7 +79,7 @@ function Trigger({
 	return (
 		<DropdownMenuPrimitive.Trigger
 			asChild={asChild}
-			className="cursor-pointer"
+			className="t:w-full t:cursor-pointer"
 		>
 			{children}
 		</DropdownMenuPrimitive.Trigger>

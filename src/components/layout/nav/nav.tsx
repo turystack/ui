@@ -1,11 +1,16 @@
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import { ChevronDown } from 'lucide-react'
-import type { ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import { useState } from 'react'
 import { tv } from 'tailwind-variants'
 
-import type { NavProps, SidebarNavItem, SidebarNavSubItem } from './nav.types'
+import type {
+	NavItemSlotProps,
+	NavProps,
+	SidebarNavItem,
+	SidebarNavSubItem,
+} from './nav.types'
 
 import { Tooltip } from '@/components/tooltip/tooltip'
 import { cn } from '@/support/utils'
@@ -225,8 +230,27 @@ function NavDivider({ collapsed }: { collapsed: boolean }) {
 	)
 }
 
-export function LayoutNav({ items }: NavProps) {
+function NavItemSlot({
+	active,
+	children,
+}: PropsWithChildren<NavItemSlotProps>) {
+	return (
+		<div
+			className={cn(
+				't:group t:flex t:w-full t:cursor-pointer t:items-center t:rounded-md t:text-sm t:transition-colors',
+				't:hover:bg-accent t:hover:text-accent-foreground',
+				't:gap-3 t:px-2 t:py-2',
+				active && 't:bg-accent t:font-medium t:text-accent-foreground',
+			)}
+		>
+			{children}
+		</div>
+	)
+}
+
+function LayoutNavRoot({ items }: NavProps) {
 	const { collapsed } = useSidebar()
+
 	return (
 		<nav className="t:flex t:w-full t:flex-col t:gap-1 t:p-2">
 			{items
@@ -257,3 +281,7 @@ export function LayoutNav({ items }: NavProps) {
 		</nav>
 	)
 }
+
+export const LayoutNav = Object.assign(LayoutNavRoot, {
+	Item: NavItemSlot,
+})

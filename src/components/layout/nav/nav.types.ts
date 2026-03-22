@@ -27,3 +27,7 @@ export type SidebarNavEntry =
 export type NavProps = {
 	items: SidebarNavEntry[]
 }
+
+export type NavItemSlotProps = {
+	active?: boolean
+}
