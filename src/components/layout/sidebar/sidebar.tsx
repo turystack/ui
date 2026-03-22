@@ -31,7 +31,7 @@ const sidebarHeaderStyles = tv({
 		size: 'md',
 	},
 	slots: {
-		root: 't:flex t:shrink-0 t:items-center t:justify-between t:px-4',
+		root: 't:flex t:shrink-0 t:items-center t:justify-between t:px-2',
 	},
 	variants: {
 		bordered: {
@@ -64,7 +64,7 @@ const sidebarFooterStyles = tv({
 		size: 'md',
 	},
 	slots: {
-		root: 't:flex t:shrink-0 t:items-center t:px-4',
+		root: 't:flex t:shrink-0 t:items-center t:px-2',
 	},
 	variants: {
 		bordered: {
